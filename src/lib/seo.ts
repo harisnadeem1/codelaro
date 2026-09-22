@@ -1,93 +1,386 @@
 /**
- * Builds the tags an indexable page needs — title, description, canonical URL,
- * Open Graph, X/Twitter card, and any JSON-LD — from one call in the route's
- * `meta` export.
+ * Central SEO helper for Codelaro.
  *
- * Canonical and `og:url` have to be absolute, and only the server knows the
- * site's public origin, so the root route publishes it and this reads it back
- * out of `matches`. A page that writes `<meta>` tags by hand instead ends up
- * with no canonical URL and nothing for social platforms to show.
+ * Generates:
+ * - Page title
+ * - Meta description
+ * - Canonical URL
+ * - Robots directives
+ * - Open Graph metadata
+ * - X / Twitter Card metadata
+ * - JSON-LD structured data
  *
- * X falls back to the `og:` tags, so the `twitter:` ones repeat them only
- * because SEO audits score the card tags on their own.
+ * The root loader publishes the site's public origin. This helper reads that
+ * origin from route matches so canonical URLs, Open Graph URLs and social
+ * images can always be emitted as absolute URLs.
  */
+
 import type { MetaDescriptor } from 'react-router';
 
-type RouteMatchLike = { id: string; loaderData: unknown } | undefined;
+/* -------------------------------------------------------------------------- */
+/*                                   Types                                    */
+/* -------------------------------------------------------------------------- */
+
+type RouteMatchLike =
+	| {
+			id: string;
+			loaderData: unknown;
+	  }
+	| undefined;
 
 export type SeoArgs = {
 	matches: readonly RouteMatchLike[];
-	location: { pathname: string };
+
+	location: {
+		pathname: string;
+	};
 };
 
 export type SeoInput = {
-	/** Unique to this page, under ~60 characters. */
-	title: string;
-	/** Unique to this page, 120-160 characters. */
-	description: string;
-	/** Canonical path, when it differs from the URL being rendered. */
-	path?: string;
-	/** Social card image, absolute or root-relative. */
-	image?: string;
-	/** `article` for blog posts and news, `website` for everything else. */
-	type?: 'website' | 'article';
 	/**
-	 * Keeps the page out of search results while still letting crawlers follow
-	 * its links. Not access control. Add `nofollow` as an extra descriptor when
-	 * a page genuinely needs it.
+	 * Unique page title.
+	 *
+	 * Aim for roughly 50–60 characters where practical.
+	 */
+	title: string;
+
+	/**
+	 * Unique page description.
+	 *
+	 * Aim for roughly 120–160 characters where practical.
+	 */
+	description: string;
+
+	/**
+	 * Canonical pathname.
+	 *
+	 * Only provide this when the canonical URL should differ from the
+	 * currently rendered pathname.
+	 *
+	 * Example:
+	 * path: '/services/web-development'
+	 */
+	path?: string;
+
+	/**
+	 * Social sharing image.
+	 *
+	 * Can be:
+	 * /og/home.png
+	 *
+	 * or:
+	 * https://example.com/image.png
+	 */
+	image?: string;
+
+	/**
+	 * Accessible description for the social image.
+	 */
+	imageAlt?: string;
+
+	/**
+	 * Open Graph content type.
+	 *
+	 * Use "article" for articles / insights.
+	 * Everything else should normally remain "website".
+	 */
+	type?: 'website' | 'article';
+
+	/**
+	 * Prevent the page from appearing in search results.
+	 *
+	 * Crawlers can still follow links on the page.
 	 */
 	noindex?: boolean;
-	/** Schema.org objects, one `<script type="application/ld+json">` each. */
+
+	/**
+	 * Prevent crawlers from following links.
+	 *
+	 * This should rarely be necessary.
+	 */
+	nofollow?: boolean;
+
+	/**
+	 * Schema.org structured data.
+	 *
+	 * Accepts either one object or multiple JSON-LD blocks.
+	 */
 	jsonLd?: object | object[];
 };
 
+/* -------------------------------------------------------------------------- */
+/*                              Site Constants                                */
+/* -------------------------------------------------------------------------- */
+
 const ROOT_ROUTE_ID = 'root';
 
-/** The site's public origin, as published by the root loader. */
-export const siteOriginFrom = (matches: readonly RouteMatchLike[]): string => {
-	const root = matches.find(match => match?.id === ROOT_ROUTE_ID);
+const SITE_NAME = 'Codelaro';
 
-	return (root?.loaderData as { origin?: string } | undefined)?.origin ?? '';
+const DEFAULT_IMAGE_ALT =
+	'Codelaro — Software Development & AI Solutions';
+
+const DEFAULT_LOCALE = 'en_US';
+
+/* -------------------------------------------------------------------------- */
+/*                              Origin Helpers                                */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Reads the site's public origin from the root route loader.
+ */
+export const siteOriginFrom = (
+	matches: readonly RouteMatchLike[],
+): string => {
+	const root = matches.find(
+		(match) => match?.id === ROOT_ROUTE_ID,
+	);
+
+	const origin = (
+		root?.loaderData as
+			| {
+					origin?: string;
+			  }
+			| undefined
+	)?.origin;
+
+	return origin?.replace(/\/+$/, '') ?? '';
 };
 
-export const absoluteUrl = (origin: string, target: string): string => {
-	if (/^https?:\/\//.test(target)) {
+/**
+ * Converts a relative URL/path into an absolute URL.
+ *
+ * Absolute HTTP(S) URLs are returned unchanged.
+ */
+export const absoluteUrl = (
+	origin: string,
+	target: string,
+): string => {
+	if (/^https?:\/\//i.test(target)) {
 		return target;
 	}
 
-	return `${origin}${target.startsWith('/') ? target : `/${target}`}`;
+	const normalizedTarget = target.startsWith('/')
+		? target
+		: `/${target}`;
+
+	return `${origin}${normalizedTarget}`;
 };
 
-export function seo({ matches, location }: SeoArgs, input: SeoInput): MetaDescriptor[] {
+/* -------------------------------------------------------------------------- */
+/*                           Canonical Normalization                          */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Normalizes paths for canonical URLs.
+ *
+ * Homepage:
+ * /
+ *
+ * Internal page:
+ * /services
+ *
+ * Trailing slashes are removed from internal pages so:
+ *
+ * /services/
+ *
+ * becomes:
+ *
+ * /services
+ */
+function normalizePath(path: string): string {
+	if (!path || path === '/') {
+		return '/';
+	}
+
+	const normalized = path.startsWith('/')
+		? path
+		: `/${path}`;
+
+	return normalized.replace(/\/+$/, '');
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               SEO Builder                                  */
+/* -------------------------------------------------------------------------- */
+
+export function seo(
+	{ matches, location }: SeoArgs,
+	input: SeoInput,
+): MetaDescriptor[] {
 	const origin = siteOriginFrom(matches);
-	const canonical = absoluteUrl(origin, input.path ?? location.pathname);
-	const imageUrl = input.image ? absoluteUrl(origin, input.image) : '';
 
-	const tags: MetaDescriptor[] = [
-		{ title: input.title },
-		{ name: 'description', content: input.description },
-		{ property: 'og:title', content: input.title },
-		{ property: 'og:description', content: input.description },
-		{ property: 'og:type', content: input.type ?? 'website' },
-		{ name: 'twitter:card', content: imageUrl ? 'summary_large_image' : 'summary' },
-		{ name: 'twitter:title', content: input.title },
-		{ name: 'twitter:description', content: input.description },
-	];
+	const canonicalPath = normalizePath(
+		input.path ?? location.pathname,
+	);
 
-	if (origin) {
-		tags.push({ tagName: 'link', rel: 'canonical', href: canonical }, { property: 'og:url', content: canonical });
-	}
+	const canonical = origin
+		? absoluteUrl(origin, canonicalPath)
+		: '';
 
-	if (imageUrl) {
-		tags.push({ property: 'og:image', content: imageUrl }, { name: 'twitter:image', content: imageUrl });
-	}
+	const imageUrl =
+		origin && input.image
+			? absoluteUrl(origin, input.image)
+			: input.image ?? '';
+
+	const imageAlt =
+		input.imageAlt ?? DEFAULT_IMAGE_ALT;
+
+	/* ---------------------------------------------------------------------- */
+	/* Robots                                                                 */
+	/* ---------------------------------------------------------------------- */
+
+	const robots: string[] = [];
 
 	if (input.noindex) {
-		tags.push({ name: 'robots', content: 'noindex' });
+		robots.push('noindex');
+	} else {
+		robots.push('index');
 	}
 
-	for (const block of [input.jsonLd ?? []].flat()) {
-		tags.push({ 'script:ld+json': block });
+	if (input.nofollow) {
+		robots.push('nofollow');
+	} else {
+		robots.push('follow');
+	}
+
+	if (!input.noindex) {
+		robots.push(
+			'max-image-preview:large',
+			'max-snippet:-1',
+			'max-video-preview:-1',
+		);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Base Metadata                                                          */
+	/* ---------------------------------------------------------------------- */
+
+	const tags: MetaDescriptor[] = [
+		{
+			title: input.title,
+		},
+
+		{
+			name: 'description',
+			content: input.description,
+		},
+
+		{
+			name: 'robots',
+			content: robots.join(', '),
+		},
+
+		/* ------------------------------------------------------------------ */
+		/* Open Graph                                                        */
+		/* ------------------------------------------------------------------ */
+
+		{
+			property: 'og:title',
+			content: input.title,
+		},
+
+		{
+			property: 'og:description',
+			content: input.description,
+		},
+
+		{
+			property: 'og:type',
+			content: input.type ?? 'website',
+		},
+
+		{
+			property: 'og:site_name',
+			content: SITE_NAME,
+		},
+
+		{
+			property: 'og:locale',
+			content: DEFAULT_LOCALE,
+		},
+
+		/* ------------------------------------------------------------------ */
+		/* X / Twitter                                                       */
+		/* ------------------------------------------------------------------ */
+
+		{
+			name: 'twitter:card',
+			content: imageUrl
+				? 'summary_large_image'
+				: 'summary',
+		},
+
+		{
+			name: 'twitter:title',
+			content: input.title,
+		},
+
+		{
+			name: 'twitter:description',
+			content: input.description,
+		},
+	];
+
+	/* ---------------------------------------------------------------------- */
+	/* Canonical + Open Graph URL                                             */
+	/* ---------------------------------------------------------------------- */
+
+	if (canonical) {
+		tags.push(
+			{
+				tagName: 'link',
+				rel: 'canonical',
+				href: canonical,
+			},
+			{
+				property: 'og:url',
+				content: canonical,
+			},
+		);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Social Image                                                          */
+	/* ---------------------------------------------------------------------- */
+
+	if (imageUrl) {
+		tags.push(
+			{
+				property: 'og:image',
+				content: imageUrl,
+			},
+
+			{
+				property: 'og:image:alt',
+				content: imageAlt,
+			},
+
+			{
+				name: 'twitter:image',
+				content: imageUrl,
+			},
+
+			{
+				name: 'twitter:image:alt',
+				content: imageAlt,
+			},
+		);
+	}
+
+	/* ---------------------------------------------------------------------- */
+	/* JSON-LD                                                               */
+	/* ---------------------------------------------------------------------- */
+
+	const jsonLdBlocks = input.jsonLd
+		? Array.isArray(input.jsonLd)
+			? input.jsonLd
+			: [input.jsonLd]
+		: [];
+
+	for (const block of jsonLdBlocks) {
+		tags.push({
+			'script:ld+json': block,
+		});
 	}
 
 	return tags;

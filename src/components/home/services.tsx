@@ -1,180 +1,412 @@
 import { Link } from 'react-router';
-import { ArrowUpRight } from 'lucide-react';
-import { SERVICES, type Service, type ServiceSpan } from '@/data/services';
-import { cn } from '@/lib/utils';
+import {
+	ArrowRight,
+	ArrowUpRight,
+	BrainCircuit,
+	Code2,
+	Layers,
+	Rocket,
+	ShoppingBag,
+	Smartphone,
+	type LucideIcon,
+} from 'lucide-react';
 
-/* ---------- span maps ---------- */
+/* ---------- Homepage services ---------- */
 
-const SPAN_CLASSES: Record<ServiceSpan, string> = {
-	featured: 'md:col-span-2 lg:col-span-2 lg:row-span-2',
-	wide: 'md:col-span-2 lg:col-span-2',
-	standard: 'md:col-span-1 lg:col-span-1',
+type HomeService = {
+	slug: string;
+	title: string;
+	tagline: string;
+	icon: LucideIcon;
 };
 
-/* ---------- featured visual for the large tile ---------- */
+const HOME_SERVICES: HomeService[] = [
+	{
+		slug: 'web-development',
+		title: 'Web Development',
+		tagline:
+			'Fast, responsive and SEO-ready websites and web applications built to create better user experiences and support business growth.',
+		icon: Code2,
+	},
+	{
+		slug: 'custom-software-development',
+		title: 'Custom Software Development',
+		tagline:
+			'Tailored software solutions built around your workflows, operations and business goals — designed to solve problems generic tools cannot.',
+		icon: Layers,
+	},
+	{
+		slug: 'mobile-app-development',
+		title: 'Mobile App Development',
+		tagline:
+			'Intuitive and reliable mobile applications for iOS and Android, built to deliver seamless experiences wherever your users are.',
+		icon: Smartphone,
+	},
+	{
+		slug: 'saas-development',
+		title: 'SaaS Development',
+		tagline:
+			'Scalable SaaS platforms built from idea to launch, with the architecture, subscriptions and product foundations needed for long-term growth.',
+		icon: Rocket,
+	},
+	{
+		slug: 'ai-automation',
+		title: 'AI & Automation',
+		tagline:
+			'Practical AI solutions and intelligent automation that reduce repetitive work, connect workflows and help your team operate more efficiently.',
+		icon: BrainCircuit,
+	},
+	{
+		slug: 'ecommerce-development',
+		title: 'E-commerce Development',
+		tagline:
+			'High-performance online stores and marketplaces built to simplify buying, integrate operations and support growth as demand increases.',
+		icon: ShoppingBag,
+	},
+];
 
-function FeaturedVisual() {
-	return (
-		<div className="relative mt-6 hidden overflow-hidden rounded-xl border border-slate-200/80 bg-[#0F172A] p-4 font-mono text-[12px] leading-relaxed lg:block">
-			<div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark opacity-40" />
-			<div className="relative space-y-1.5">
-				<p>
-					<span className="text-slate-500">const</span>{' '}
-					<span className="text-brand">product</span>{' '}
-					<span className="text-slate-500">=</span>{' '}
-					<span className="text-slate-300">build(&#123;</span>
-				</p>
-				<p className="pl-4 text-slate-300">
-					framework: <span className="text-brand">'react-router'</span>,
-				</p>
-				<p className="pl-4 text-slate-300">
-					render: <span className="text-brand">'ssr'</span>,
-				</p>
-				<p className="pl-4 text-slate-300">
-					perf: <span className="text-brand">'edge-ready'</span>,
-				</p>
-				<p className="text-slate-300">
-					<span className="text-slate-500">&#125;)</span>
-				</p>
-			</div>
-			<span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-brand/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand">
-				<span className="h-1.5 w-1.5 rounded-full bg-brand" />
-				shipping
-			</span>
-		</div>
-	);
-}
 
-/* ---------- card ---------- */
+/* ---------- Service card ---------- */
 
-function ServiceCard({ service }: { service: Service }) {
+function ServiceCard({
+	service,
+	index,
+}: {
+	service: HomeService;
+	index: number;
+}) {
 	const Icon = service.icon;
-	const isFeatured = service.span === 'featured';
-	const isAccent = service.accent;
 
 	return (
 		<Link
 			to={`/services/${service.slug}`}
-			className={cn(
-				'group relative flex flex-col overflow-hidden rounded-2xl border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/10 active:scale-[0.99] sm:p-6',
-				isAccent
-					? 'border-brand/30 bg-brand/[0.06] hover:border-brand/50'
-					: 'border-slate-200/80 bg-white hover:border-brand/40',
-				isFeatured && 'justify-between',
-			)}
+			aria-label={`Learn more about ${service.title}`}
+			className="
+				group relative flex min-h-[250px] flex-col
+				overflow-hidden border border-slate-200/80
+				bg-white p-6
+				transition-all duration-300
+				hover:-translate-y-1
+				hover:border-slate-300
+				hover:shadow-[0_24px_60px_-28px_rgba(15,23,42,0.22)]
+				sm:p-7
+			"
 		>
-			{/* hover accent line */}
-			<span className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-brand transition-transform duration-300 group-hover:scale-x-100" />
+			{/* Hover glow */}
+			<div
+				className="
+					pointer-events-none absolute
+					-right-16 -top-16 h-40 w-40
+					rounded-full bg-brand/0 blur-3xl
+					transition-colors duration-500
+					group-hover:bg-brand/[0.08]
+				"
+			/>
 
-			<div className={cn('flex items-start gap-4', isFeatured && 'lg:items-start')}>
+			{/* Number */}
+			<div className="relative flex justify-end">
 				<span
-					className={cn(
-						'grid h-11 w-11 shrink-0 place-items-center rounded-xl transition-colors duration-300',
-						isAccent
-							? 'bg-brand text-white'
-							: 'bg-brand/10 text-brand group-hover:bg-brand group-hover:text-white',
-					)}
+					className="
+						text-[10px] font-semibold
+						tabular-nums tracking-[0.16em]
+						text-slate-300
+						transition-colors duration-300
+						group-hover:text-brand
+					"
 				>
-					<Icon className="h-5 w-5" strokeWidth={1.9} />
+					{String(index + 1).padStart(2, '0')}
 				</span>
-
-				<div className="min-w-0">
-					<h3
-						className={cn(
-							'font-display font-semibold tracking-tight text-navy',
-							isFeatured ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg',
-						)}
-					>
-						{service.title}
-					</h3>
-				</div>
 			</div>
 
+			{/* Icon + title */}
+			<div className="relative mt-0 flex items-center gap-4">
+				<span
+					className="
+						grid h-11 w-11 shrink-0 place-items-center
+						rounded-xl bg-slate-50
+						text-navy ring-1 ring-slate-200/80
+						transition-all duration-300
+						group-hover:text-brand
+						group-hover:ring-brand
+					"
+				>
+					<Icon
+						className="h-[19px] w-[19px]"
+						strokeWidth={1.8}
+						aria-hidden="true"
+					/>
+				</span>
+
+				<h3
+					className="
+						font-display text-xl font-semibold
+						tracking-tight text-navy
+					"
+				>
+					{service.title}
+				</h3>
+			</div>
+
+			{/* Tagline */}
 			<p
-				className={cn(
-					'mt-4 text-[14px] leading-relaxed text-slate-500',
-					isFeatured ? 'sm:text-[15px]' : 'sm:text-sm',
-					isFeatured && 'max-w-md',
-				)}
+				className="
+					relative mt-5 max-w-md
+					text-[15px] leading-6
+					text-slate-500
+				"
 			>
 				{service.tagline}
 			</p>
 
-			{isFeatured && <FeaturedVisual />}
+			{/* Footer */}
+			<div className="relative mt-auto pt-7">
+				<div className="flex items-center justify-between border-t border-slate-100 pt-4">
+					<span
+						className="
+							text-[14px] font-semibold
+							text-slate-400
+							transition-colors duration-300
+							group-hover:text-navy
+						"
+					>
+						Explore service
+					</span>
 
-			<div className={cn('mt-auto', isFeatured ? 'pt-6' : 'pt-5')}>
-				<span
-					className={cn(
-						'inline-flex items-center gap-1 text-[13px] font-semibold transition-colors',
-						isAccent ? 'text-brand-700' : 'text-navy group-hover:text-brand',
-					)}
-				>
-					Explore service
-					<ArrowUpRight
-						className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-					/>
-				</span>
+					<span
+						className="
+							grid h-8 w-8 place-items-center
+							rounded-full border border-slate-200
+							text-slate-400
+							transition-all duration-300
+							group-hover:border-brand
+							group-hover:text-brand
+						"
+					>
+						<ArrowUpRight
+							className="
+								h-3.5 w-3.5
+								transition-transform duration-300
+								group-hover:translate-x-0.5
+								group-hover:-translate-y-0.5
+							"
+							aria-hidden="true"
+						/>
+					</span>
+				</div>
 			</div>
 		</Link>
 	);
 }
 
-/* ---------- section ---------- */
+
+/* ---------- Services section ---------- */
 
 export function Services() {
 	return (
-		<section id="services" className="relative scroll-mt-24 bg-[#F8FAFC]">
-			<div className="pointer-events-none absolute inset-0 bg-blueprint-grid mask-fade-b opacity-40" />
+		<section
+			id="services"
+			aria-labelledby="services-heading"
+			className="relative overflow-hidden bg-[#F8FAFC]"
+		>
+			{/* Background */}
+			<div className="pointer-events-none absolute inset-0 bg-blueprint-grid opacity-[0.13]" />
 
-			<div className="relative mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 md:py-28">
-				{/* Section intro */}
-				<div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-					<div className="max-w-2xl">
-						<p className="font-mono text-[12px] font-semibold uppercase tracking-[0.24em] text-brand-700">
-							What we do
-						</p>
-						<h2 className="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-navy sm:text-4xl md:text-[2.75rem] md:leading-[1.08]">
-							Technology expertise from{' '}
-							<span className="text-brand">idea to scale</span>.
-						</h2>
-						<p className="mt-5 max-w-xl text-base leading-relaxed text-slate-500 sm:text-lg">
-							Twelve disciplines, one senior team. We cover the full product lifecycle —
-							so you can move from concept to launch to growth without stitching vendors
-							together.
-						</p>
-					</div>
-					<Link
-						to="/services"
-						className="group hidden shrink-0 items-center gap-1.5 text-[14px] font-semibold text-navy transition-colors hover:text-brand sm:inline-flex"
-					>
-						Browse all services
-						<ArrowUpRight className="h-4 w-4 text-brand transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-					</Link>
-				</div>
+			<div
+				className="
+					pointer-events-none absolute
+					left-1/2 top-0
+					h-[300px] w-[700px]
+					-translate-x-1/2
+					rounded-full bg-brand/[0.045]
+					blur-[100px]
+				"
+			/>
 
-				{/* Bento grid */}
-				<div className="mt-12 grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:auto-rows-[minmax(170px,auto)] lg:grid-cols-4 lg:auto-rows-[minmax(180px,auto)]">
-					{SERVICES.map((service) => (
-						<ServiceCard key={service.slug} service={service} />
+			<div
+				className="
+					relative mx-auto w-full max-w-8xl
+					px-5 py-20
+					sm:px-8
+					md:py-20
+					lg:py-20
+				"
+			>
+			{/* Header */}
+<div className="relative">
+	<div className="mx-auto max-w-3xl text-center">
+		<div className="flex items-center justify-center gap-3">
+			<span className="h-px w-7 bg-brand" />
+
+			<p
+				className="
+					text-[11px] font-bold uppercase
+					tracking-[0.22em] text-brand-700
+				"
+			>
+				What we do
+			</p>
+
+			<span className="h-px w-7 bg-brand" />
+		</div>
+
+		<h2
+			id="services-heading"
+			className="
+				mt-6 font-display
+				text-[2.2rem] font-semibold
+				leading-[1.08]
+				tracking-[-0.025em]
+				text-navy
+				sm:text-4xl
+				md:text-[3rem]
+			"
+		>
+			Everything you need to
+			<span className="block text-brand">
+				build what's next.
+			</span>
+		</h2>
+
+		<p
+			className="
+				mx-auto mt-6 max-w-2xl
+				text-[15px] leading-7
+				text-slate-600
+				sm:text-base
+			"
+		>
+			From websites and mobile applications to custom
+			software, SaaS platforms and AI automation, we
+			build digital products designed around your
+			business and built to grow.
+		</p>
+	</div>
+
+	{/* View all services — top right */}
+	<Link
+		to="/services"
+		aria-label="View all Codelaro software development services"
+		className="
+			group absolute right-0 top-0
+			hidden items-center gap-2.5
+			rounded-xl
+			border border-slate-200/80
+			bg-white px-4 py-2.5
+			text-[15px] font-semibold text-navy
+			shadow-sm
+			transition-all duration-300
+			hover:border-slate-300
+			hover:bg-slate-50
+			lg:inline-flex
+		"
+	>
+		<ArrowUpRight
+			className="
+				h-4 w-4
+				transition-all duration-300
+				group-hover:-translate-y-0.5
+				group-hover:translate-x-0.5
+				group-hover:text-brand
+			"
+			strokeWidth={2}
+			aria-hidden="true"
+		/>
+
+		View all Services
+	</Link>
+</div>
+
+				{/* Services grid */}
+				<div
+					className="
+						mt-14 grid grid-cols-1
+						sm:grid-cols-2
+						lg:mt-16
+						lg:grid-cols-3
+					"
+				>
+					{HOME_SERVICES.map((service, index) => (
+						<ServiceCard
+							key={service.slug}
+							service={service}
+							index={index}
+						/>
 					))}
 				</div>
 
-				{/* Footer CTA */}
-				<div className="mt-12 flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200/80 bg-white p-6 sm:flex-row sm:items-center sm:p-8">
+				{/* Tablet/mobile all-services CTA */}
+				<div className="mt-8 flex justify-center lg:hidden">
+					<Link
+						to="/services"
+						className="
+							group inline-flex items-center gap-2
+							text-[14px] font-semibold
+							text-navy transition-colors
+							hover:text-brand-700
+						"
+					>
+						Explore all services
+
+						<ArrowRight
+							className="
+								h-4 w-4 text-brand
+								transition-transform duration-300
+								group-hover:translate-x-1
+							"
+							aria-hidden="true"
+						/>
+					</Link>
+				</div>
+
+				{/* Bottom CTA */}
+				<div
+					className="
+						mt-14 flex flex-col
+						items-center justify-between
+						gap-6 border-t border-slate-200
+						pt-8
+						sm:flex-row
+					"
+				>
 					<div>
-						<h3 className="font-display text-lg font-semibold tracking-tight text-navy sm:text-xl">
-							Not sure where to start?
-						</h3>
-						<p className="mt-1.5 text-[14px] text-slate-500 sm:text-[15px]">
-							Tell us about your goals — we will map the fastest route to launch.
+						<p className="font-display text-lg font-semibold text-navy">
+							Have something specific in mind?
+						</p>
+
+						<p className="mt-1 text-[14px] text-slate-500">
+							Tell us what you're planning and we'll help you
+							find the right approach.
 						</p>
 					</div>
+
 					<Link
-						to="#contact"
-						className="flex h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-brand px-6 font-display text-[15px] font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-600 hover:shadow-brand/40 active:scale-[0.98]"
+						to="/contact"
+						className="
+							group inline-flex h-12 shrink-0
+							items-center justify-center gap-2
+							rounded-xl bg-navy px-6
+							
+							text-[16px] font-semibold text-white
+							shadow-lg shadow-navy/15
+							transition-all duration-300
+							hover:-translate-y-0.5
+							hover:bg-navy-800
+							hover:shadow-xl hover:shadow-navy/20
+							active:translate-y-0
+							active:scale-[0.98]
+						"
 					>
-						Book a free consultation
-						<ArrowUpRight className="h-4 w-4" />
+						Talk to an Expert
+
+						<ArrowUpRight
+							className="
+								h-4 w-4
+								transition-transform duration-300
+								group-hover:translate-x-0.5
+								group-hover:-translate-y-0.5
+							"
+							aria-hidden="true"
+						/>
 					</Link>
 				</div>
 			</div>

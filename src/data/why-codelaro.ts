@@ -1,44 +1,37 @@
 export type Reason = {
-	number: string;
 	title: string;
 	description: string;
 };
 
 export const REASONS: Reason[] = [
 	{
-		number: '01',
-		title: 'Business-first thinking',
+		title: 'Business before technology',
 		description:
-			'Every decision starts from your goals, market and constraints — not from a technology checklist. We engineer for outcomes that matter to your business.',
+			'We start with the problem, the people and the outcome — then choose the technology that makes the most sense for your business.',
 	},
 	{
-		number: '02',
-		title: 'Scalable engineering',
+		title: 'Built for what comes next',
 		description:
-			'Architecture designed to grow with you. Clean foundations, sensible abstractions and patterns that hold up under real load and future change.',
+			'We create strong, scalable foundations so your product can evolve, handle growth and adapt without needing to be rebuilt from scratch.',
 	},
 	{
-		number: '03',
-		title: 'Transparent collaboration',
+		title: 'Clarity at every step',
 		description:
-			'Clear communication, visible progress and no black boxes. You always know what is being built, why, and what comes next.',
+			'No black boxes or unnecessary complexity. You see the progress, understand the decisions and always know what comes next.',
 	},
 	{
-		number: '04',
-		title: 'Quality-driven delivery',
+		title: 'Quality without shortcuts',
 		description:
-			'Thorough reviews, automated tests and disciplined process. Quality is built in, not bolted on at the end of a sprint.',
+			'Thoughtful architecture, careful reviews and disciplined delivery help us build products that are reliable, maintainable and ready for real use.',
 	},
 	{
-		number: '05',
-		title: 'End-to-end capabilities',
+		title: 'One partner, end to end',
 		description:
-			'Strategy, design, engineering, cloud and AI under one roof. One accountable partner from first sketch to production and beyond.',
+			'From early thinking and product design to engineering, deployment and automation, we bring the pieces together under one accountable team.',
 	},
 	{
-		number: '06',
-		title: 'Long-term support',
+		title: 'Thinking beyond launch',
 		description:
-			'We stay after launch. Maintenance, evolution and scaling support keep your product healthy as your business grows.',
+			'Launch is a milestone, not the finish line. We build with future improvements, changing requirements and long-term growth in mind.',
 	},
 ];

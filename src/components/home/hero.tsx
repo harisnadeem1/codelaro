@@ -2,131 +2,493 @@ import { Link } from 'react-router';
 import { ArrowRight, ArrowUpRight, Check, Sparkles, Cpu, Activity } from 'lucide-react';
 
 /* ---------- Right-side technology visual ---------- */
+/* ---------- Right-side product development visual ---------- */
 
-function AnalyticsCard() {
-	const bars = [38, 52, 46, 68, 60, 84, 96];
+function ProductBuildCard() {
+	const stages = [
+		{
+			label: 'Product Design',
+			description: 'UX, interface & architecture',
+			status: 'complete',
+		},
+		{
+			label: 'Development',
+			description: 'Frontend & backend systems',
+			status: 'complete',
+		},
+		{
+			label: 'AI & Integrations',
+			description: 'Automation & connected services',
+			status: 'active',
+		},
+		{
+			label: 'Launch',
+			description: 'Production deployment',
+			status: 'pending',
+		},
+	] as const;
+
 	return (
-		<div className="float-a scale-in rounded-2xl border border-slate-200/80 bg-white/95 p-5 shadow-xl shadow-navy/10 ring-1 ring-navy/5 backdrop-blur-sm" style={{ animationDelay: '0.7s' }}>
-			<div className="flex items-center justify-between">
-				<div className="flex items-center gap-2">
-					<span className="grid h-8 w-8 place-items-center rounded-lg bg-brand/10 text-brand">
-						<Activity className="h-4 w-4" strokeWidth={2} />
-					</span>
+		<div
+			className="
+				scale-in relative overflow-hidden
+				rounded-[24px]
+				border border-white/70
+				bg-white/80
+				shadow-[0_30px_80px_-30px_rgba(15,23,42,0.30)]
+				ring-1 ring-navy/[0.04]
+				backdrop-blur-xl
+			"
+			style={{ animationDelay: '0.65s' }}
+		>
+			{/* Browser / workspace header */}
+			<div className="flex h-12 items-center justify-between border-b border-slate-200/70 px-4 sm:px-5">
+				<div className="flex items-center gap-1.5">
+					<span className="h-2.5 w-2.5 rounded-full bg-slate-200" />
+					<span className="h-2.5 w-2.5 rounded-full bg-slate-200" />
+					<span className="h-2.5 w-2.5 rounded-full bg-brand/60" />
+				</div>
+
+				<div
+					className="
+						rounded-md border border-slate-200/80
+						bg-slate-50/80 px-3 py-1
+						text-[10px] font-medium text-slate-400
+					"
+				>
+					codelaro / digital-product
+				</div>
+
+				<span className="h-2 w-2 rounded-full bg-brand" />
+			</div>
+
+			{/* Main workspace */}
+			<div className="relative p-5 sm:p-6">
+				{/* Subtle internal glow */}
+				<div
+					className="
+						pointer-events-none absolute
+						-right-16 -top-16 h-44 w-44
+						rounded-full bg-brand/[0.08] blur-3xl
+					"
+				/>
+
+				{/* Heading */}
+				<div className="relative flex items-start justify-between gap-4">
 					<div>
-						<p className="text-[13px] font-semibold text-navy">Product Analytics</p>
-						<p className="text-[11px] text-slate-400">Live · last 7 days</p>
+						<div className="mb-2 flex items-center gap-2">
+							<span className="h-1.5 w-1.5 rounded-full bg-brand" />
+
+							<span
+								className="
+									text-[10px] font-bold uppercase
+									tracking-[0.16em] text-brand-700
+								"
+							>
+								Product Build
+							</span>
+						</div>
+
+						<h3 className="font-display text-xl font-semibold tracking-tight text-navy sm:text-2xl">
+							Building your
+							<br />
+							digital product
+						</h3>
+					</div>
+
+					<div
+						className="
+							hidden rounded-xl border border-slate-200/80
+							bg-white/80 px-3 py-2 text-right
+							shadow-sm sm:block
+						"
+					>
+						<p className="text-[10px] font-medium text-slate-400">
+							Build progress
+						</p>
+
+						<p className="mt-0.5 text-lg font-bold text-navy">
+							72%
+						</p>
 					</div>
 				</div>
-				<span className="rounded-full bg-brand/10 px-2 py-0.5 text-[11px] font-semibold text-brand-700">
-					+38%
-				</span>
-			</div>
 
-			<div className="mt-4 flex h-24 items-end gap-1.5">
-				{bars.map((h, i) => (
-					<div
-						key={i}
-						className="flex-1 rounded-t-sm bg-gradient-to-t from-brand/20 to-brand/70"
-						style={{ height: `${h}%` }}
-					/>
-				))}
-			</div>
+				{/* Progress bar */}
+				<div className="relative mt-5">
+					<div className="flex items-center justify-between text-[10px] font-medium">
+						<span className="text-slate-400">
+							Development progress
+						</span>
 
-			<svg viewBox="0 0 280 40" className="mt-3 h-9 w-full" preserveAspectRatio="none" aria-hidden="true">
-				<polyline
-					points="0,34 40,28 80,31 120,18 160,22 200,9 240,12 280,3"
-					fill="none"
-					stroke="#18BCB7"
-					strokeWidth="2.5"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				/>
-				<circle cx="280" cy="3" r="3.5" fill="#18BCB7" />
-			</svg>
+						<span className="text-brand-700">72%</span>
+					</div>
+
+					<div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-100">
+						<div className="h-full w-[72%] rounded-full bg-brand" />
+					</div>
+				</div>
+
+				{/* Development stages */}
+				<div className="relative mt-6 space-y-2">
+					{stages.map((stage, index) => {
+						const complete = stage.status === 'complete';
+						const active = stage.status === 'active';
+
+						return (
+							<div
+								key={stage.label}
+								className={[
+									'group flex items-center gap-3 rounded-xl',
+									'border px-3.5 py-3',
+									'transition-all duration-300',
+									active
+										? 'border-brand/20 bg-brand/[0.055]'
+										: 'border-slate-100/90 bg-white/55',
+								].join(' ')}
+							>
+								{/* Status */}
+								<div
+									className={[
+										'grid h-8 w-8 shrink-0 place-items-center rounded-lg',
+										complete
+											? 'bg-navy text-white'
+											: active
+												? 'bg-brand text-white shadow-sm shadow-brand/20'
+												: 'bg-slate-100 text-slate-400',
+									].join(' ')}
+								>
+									{complete ? (
+										<Check
+											className="h-4 w-4"
+											strokeWidth={2.4}
+										/>
+									) : active ? (
+										<span className="relative flex h-2.5 w-2.5">
+											<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-50" />
+											<span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
+										</span>
+									) : (
+										<span className="text-[11px] font-semibold">
+											{index + 1}
+										</span>
+									)}
+								</div>
+
+								{/* Stage information */}
+								<div className="min-w-0 flex-1">
+									<p className="text-[13px] font-semibold text-navy">
+										{stage.label}
+									</p>
+
+									<p className="mt-0.5 text-[11px] text-slate-400">
+										{stage.description}
+									</p>
+								</div>
+
+								{/* State */}
+								{complete && (
+									<span className="hidden text-[10px] font-semibold text-slate-400 sm:block">
+										Complete
+									</span>
+								)}
+
+								{active && (
+									<span
+										className="
+											hidden rounded-full bg-brand/10
+											px-2 py-1 text-[10px]
+											font-semibold text-brand-700
+											sm:block
+										"
+									>
+										In progress
+									</span>
+								)}
+							</div>
+						);
+					})}
+				</div>
+
+				{/* Bottom technology line */}
+				<div
+					className="
+						relative mt-5 flex items-center
+						justify-between border-t border-slate-100 pt-4
+					"
+				>
+					<div className="flex items-center gap-2">
+						<span className="flex -space-x-1.5">
+							<span
+								className="
+									grid h-6 w-6 place-items-center rounded-full
+									border-2 border-white bg-navy
+									text-[8px] font-bold text-white
+								"
+							>
+								FE
+							</span>
+
+							<span
+								className="
+									grid h-6 w-6 place-items-center rounded-full
+									border-2 border-white bg-slate-700
+									text-[8px] font-bold text-white
+								"
+							>
+								BE
+							</span>
+
+							<span
+								className="
+									grid h-6 w-6 place-items-center rounded-full
+									border-2 border-white bg-brand
+									text-[8px] font-bold text-white
+								"
+							>
+								AI
+							</span>
+						</span>
+
+						<span className="text-[10px] font-medium text-slate-400">
+							Systems connected
+						</span>
+					</div>
+
+					<span className="flex items-center gap-1.5 text-[10px] font-semibold text-brand-700">
+						<span className="h-1.5 w-1.5 rounded-full bg-brand" />
+						Active
+					</span>
+				</div>
+			</div>
 		</div>
 	);
 }
+
+
+/* ---------- Floating deployment status ---------- */
 
 function DeployCard() {
 	return (
-		<div className="float-b scale-in absolute -bottom-6 -left-6 w-56 rounded-xl border border-slate-200/80 bg-white/95 p-4 shadow-xl shadow-navy/10 ring-1 ring-navy/5 backdrop-blur-sm" style={{ animationDelay: '0.95s' }}>
+		<div
+			className="
+				float-b scale-in
+				absolute -bottom-5 -left-3
+				z-20 w-[210px]
+				rounded-2xl
+				border border-white/80
+				bg-white/85 p-3.5
+				shadow-[0_18px_50px_-18px_rgba(15,23,42,0.35)]
+				ring-1 ring-navy/[0.04]
+				backdrop-blur-xl
+				sm:-left-7 sm:w-56 sm:p-4
+			"
+			style={{ animationDelay: '0.95s' }}
+		>
 			<div className="flex items-center gap-2.5">
-				<span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-600">
+				<span
+					className="
+						grid h-9 w-9 shrink-0
+						place-items-center rounded-xl
+						bg-brand/10 text-brand-700
+					"
+				>
 					<Check className="h-4 w-4" strokeWidth={2.5} />
 				</span>
+
 				<div className="min-w-0">
-					<p className="truncate text-[13px] font-semibold text-navy">Deploy succeeded</p>
-					<p className="text-[11px] text-slate-400">shipped to production</p>
+					<div className="flex items-center gap-1.5">
+						<p className="truncate text-[12px] font-semibold text-navy sm:text-[13px]">
+							Ready to deploy
+						</p>
+
+						<span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
+					</div>
+
+					<p className="mt-0.5 text-[10px] text-slate-400 sm:text-[11px]">
+						Production environment
+					</p>
 				</div>
 			</div>
-			<div className="mt-3 flex items-center gap-1.5">
-				<span className="h-1.5 flex-1 rounded-full bg-slate-100" />
-				<span className="h-1.5 flex-1 rounded-full bg-slate-100" />
-				<span className="h-1.5 flex-1 rounded-full bg-slate-100" />
-				<span className="h-1.5 flex-1 rounded-full bg-brand" />
+
+			<div className="mt-3 flex items-center gap-1">
+				<span className="h-1 rounded-full bg-brand" style={{ width: '25%' }} />
+				<span className="h-1 rounded-full bg-brand" style={{ width: '25%' }} />
+				<span className="h-1 rounded-full bg-brand" style={{ width: '25%' }} />
+				<span className="h-1 rounded-full bg-slate-100" style={{ width: '25%' }} />
 			</div>
 		</div>
 	);
 }
 
+
+/* ---------- Floating AI status ---------- */
+
 function AiChip() {
 	return (
-		<div className="float-a scale-in absolute -right-4 top-6 flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/95 py-2 pl-2 pr-3.5 shadow-lg shadow-navy/10 ring-1 ring-navy/5 backdrop-blur-sm" style={{ animationDelay: '1.15s' }}>
-			<span className="grid h-7 w-7 place-items-center rounded-full bg-navy text-brand">
-				<Cpu className="h-3.5 w-3.5" strokeWidth={2} />
+		<div
+			className="
+				float-a scale-in
+				absolute -right-2 top-5 z-20
+				flex items-center gap-2
+				rounded-full
+				border border-white/80
+				bg-white/85
+				py-2 pl-2 pr-3.5
+				shadow-[0_14px_40px_-16px_rgba(15,23,42,0.35)]
+				ring-1 ring-navy/[0.04]
+				backdrop-blur-xl
+				sm:-right-5
+			"
+			style={{ animationDelay: '1.1s' }}
+		>
+			<span className="grid h-8 w-8 place-items-center rounded-full bg-navy text-brand">
+				<Cpu className="h-4 w-4" strokeWidth={2} />
 			</span>
-			<span className="text-[12px] font-semibold text-navy">AI automation</span>
-			<span className="relative flex h-2 w-2">
-				<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
+
+			<div>
+				<p className="text-[11px] font-semibold leading-none text-navy sm:text-[12px]">
+					AI integrated
+				</p>
+
+				<p className="mt-1 text-[9px] leading-none text-slate-400">
+					Automation connected
+				</p>
+			</div>
+
+			<span className="relative ml-1 flex h-2 w-2">
+				<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-50" />
 				<span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
 			</span>
 		</div>
 	);
 }
 
+
+/* ---------- Background connector details ---------- */
+
 function ConnectorLines() {
 	return (
 		<svg
 			className="pointer-events-none absolute inset-0 h-full w-full"
-			viewBox="0 0 400 480"
+			viewBox="0 0 500 560"
 			fill="none"
 			preserveAspectRatio="none"
 			aria-hidden="true"
 		>
-			<line x1="60" y1="120" x2="330" y2="70" stroke="#18BCB7" strokeWidth="1.5" strokeDasharray="4 5" opacity="0.45" />
-			<line x1="120" y1="300" x2="300" y2="180" stroke="#0F172A" strokeWidth="1.5" strokeDasharray="4 5" opacity="0.18" />
-			<circle cx="60" cy="120" r="4" fill="#18BCB7" className="node-pulse" />
-			<circle cx="330" cy="70" r="4" fill="#18BCB7" className="node-pulse" style={{ animationDelay: '1s' }} />
-			<circle cx="120" cy="300" r="3.5" fill="#0F172A" opacity="0.35" className="node-pulse" style={{ animationDelay: '1.6s' }} />
+			<path
+				d="M40 110 C140 55 335 70 455 125"
+				stroke="#18BCB7"
+				strokeWidth="1.2"
+				strokeDasharray="4 7"
+				opacity="0.3"
+			/>
+
+			<path
+				d="M60 440 C170 500 355 470 455 390"
+				stroke="#0F172A"
+				strokeWidth="1"
+				strokeDasharray="4 8"
+				opacity="0.12"
+			/>
+
+			<circle
+				cx="40"
+				cy="110"
+				r="3.5"
+				fill="#18BCB7"
+				className="node-pulse"
+			/>
+
+			<circle
+				cx="455"
+				cy="125"
+				r="3.5"
+				fill="#18BCB7"
+				className="node-pulse"
+				style={{ animationDelay: '1s' }}
+			/>
+
+			<circle
+				cx="455"
+				cy="390"
+				r="3"
+				fill="#0F172A"
+				opacity="0.3"
+				className="node-pulse"
+				style={{ animationDelay: '1.5s' }}
+			/>
 		</svg>
 	);
 }
 
+
+/* ---------- Complete hero visual ---------- */
+
 function HeroVisual() {
 	return (
-		<div className="relative mx-auto mt-14 w-full max-w-md lg:mt-0 lg:max-w-none">
-			{/* Teal glow + grid panel behind the fragments */}
-			<div className="drift-slow pointer-events-none absolute -inset-6 -z-10 rounded-[2rem] bg-brand/12 blur-3xl" />
-			<div className="pointer-events-none absolute inset-0 -z-10 rounded-[1.75rem] bg-blueprint-grid mask-fade-b opacity-70" />
+		<div
+			className="
+				relative mx-auto mt-12
+				w-full max-w-[500px]
+				lg:mt-0 lg:max-w-none
+			"
+		>
+			{/* Large atmospheric glow */}
+			<div
+				className="
+					drift-slow pointer-events-none
+					absolute left-1/2 top-1/2 -z-20
+					h-[80%] w-[90%]
+					-translate-x-1/2 -translate-y-1/2
+					rounded-full bg-brand/[0.12]
+					blur-[80px]
+				"
+			/>
 
-			<div className="relative min-h-[420px] sm:min-h-[460px] lg:min-h-[520px]">
+			{/* Blueprint backdrop */}
+			<div
+				className="
+					pointer-events-none absolute
+					-inset-5 -z-10
+					rounded-[32px]
+					bg-blueprint-grid
+					opacity-60
+					mask-fade-b
+				"
+			/>
+
+			<div className="relative min-h-[470px] sm:min-h-[520px] lg:min-h-[560px]">
 				<ConnectorLines />
 
-				<div className="relative pt-10 pr-8 sm:pr-12">
-					<AnalyticsCard />
+				{/* Main product interface */}
+				<div className="relative z-10 pt-9 sm:pr-5 sm:pt-11">
+					<ProductBuildCard />
 				</div>
 
 				<AiChip />
 				<DeployCard />
 
-				{/* Corner brackets framing the composition */}
-				<span className="pointer-events-none absolute -left-2 -top-2 h-6 w-6 rounded-tl-md border-l-2 border-t-2 border-brand/60" />
-				<span className="pointer-events-none absolute -bottom-2 -right-2 h-6 w-6 rounded-br-md border-b-2 border-r-2 border-brand/60" />
+				{/* Small ambient nodes */}
+				<span
+					className="
+						node-pulse pointer-events-none
+						absolute left-2 top-[36%]
+						h-2 w-2 rounded-full bg-brand/60
+					"
+				/>
+
+				<span
+					className="
+						node-pulse pointer-events-none
+						absolute bottom-[18%] right-3
+						h-1.5 w-1.5 rounded-full bg-navy/30
+					"
+					style={{ animationDelay: '1.4s' }}
+				/>
 			</div>
 		</div>
 	);
 }
-
 /* ---------- Hero ---------- */
 
 export function Hero() {
@@ -137,7 +499,7 @@ export function Hero() {
 			<div className="drift-slow pointer-events-none absolute -right-24 -top-24 h-[460px] w-[460px] rounded-full bg-brand/12 blur-3xl" />
 			<div className="pointer-events-none absolute -left-32 bottom-0 h-72 w-72 rounded-full bg-navy/5 blur-3xl" />
 
-			<div className="relative mx-auto w-full max-w-7xl px-5 pb-24 pt-32 sm:px-8 md:pt-40 lg:pb-28">
+			<div className="relative mx-auto w-full max-w-8xl px-5 pb-24 pt-32 sm:px-8 md:pt-20 lg:pb-28">
 				<div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
 					{/* Left — content */}
 					<div className="lg:col-span-7">
@@ -166,7 +528,6 @@ export function Hero() {
 							</span>
 							<span className="rise-in relative block" style={{ animationDelay: '0.45s' }}>
 								Forward.
-								<span className="absolute -bottom-1 left-0 h-1 w-24 rounded-full bg-brand/40 sm:w-32" />
 							</span>
 						</h1>
 
@@ -174,9 +535,7 @@ export function Hero() {
 							className="rise-in mt-6 max-w-xl text-base leading-relaxed text-slate-500 sm:text-lg"
 							style={{ animationDelay: '0.6s' }}
 						>
-							From powerful software and mobile apps to AI automation and seamless
-							integrations, Codelaro turns ambitious ideas into scalable digital
-							experiences.
+							Codelaro designs and develops websites, web and mobile applications, custom software, and AI automation built to scale with your business.
 						</p>
 
 						<div
@@ -184,26 +543,20 @@ export function Hero() {
 							style={{ animationDelay: '0.72s' }}
 						>
 							<Link
-								to="#contact"
-								className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand px-7 font-display text-[15px] font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-600 hover:shadow-brand/40 active:scale-[0.98] sm:w-auto"
+								to="/contact"
+								className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand px-7 font-display text-base font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-600 hover:shadow-brand/40 active:scale-[0.98] sm:w-auto"
 							>
-								Start a Project
+								Talk to an Expert
 								<ArrowRight className="h-4 w-4" />
 							</Link>
-							<Link
-								to="#work"
-								className="flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-7 font-display text-[15px] font-semibold text-navy transition-all hover:border-navy/30 hover:bg-slate-50 active:scale-[0.98] sm:w-auto"
-							>
-								<Sparkles className="h-4 w-4 text-brand" />
-								Explore Our Work
-							</Link>
+						
 						</div>
 
 						{/* Quiet trust line */}
-						<div className="rise-in mt-8 flex items-center gap-4 text-[13px] text-slate-400" style={{ animationDelay: '0.85s' }}>
+						<div className="rise-in mt-8 flex items-center gap-4 text-[14px] text-slate-600" style={{ animationDelay: '0.85s' }}>
 							<span className="flex items-center gap-1.5">
 								<span className="h-1.5 w-1.5 rounded-full bg-brand" />
-								Senior-only teams
+								Product-focused development
 							</span>
 							<span className="h-3 w-px bg-slate-200" />
 							<span className="flex items-center gap-1.5">
@@ -211,7 +564,7 @@ export function Hero() {
 								End-to-end delivery
 							</span>
 							<a
-								href="#work"
+								href="/work"
 								className="ml-auto hidden items-center gap-1 font-medium text-navy transition-colors hover:text-brand sm:flex"
 							>
 								See case studies

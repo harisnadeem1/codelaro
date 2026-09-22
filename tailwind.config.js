@@ -14,8 +14,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-				display: ['Sora', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				sans: ['DM Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				display: ['Hikasami Sans', 'DM Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
 			},
 			colors: {
 				brand: {
@@ -102,6 +102,11 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 			},
+			maxWidth: {
+	'8xl': '85rem', 
+	'9xl': '90rem', 
+
+},
 		},
 	},
 	plugins: [tailwindAnimate],
