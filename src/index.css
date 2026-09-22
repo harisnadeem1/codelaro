@@ -1,0 +1,212 @@
+/*
+  Codelaro theme: Deep Navy #0F172A, Teal #18BCB7, Off White #F8FAFC,
+  Slate #64748B, White. Sora for display, Inter for body/UI.
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  overflow-x: clip;
+  background-color: #f8fafc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: rgb(24 188 183 / 0.22);
+  color: #0f172a;
+}
+
+/*
+  ---break---
+*/
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 94%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 178 77% 42%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 178 77% 42%;
+    --radius: 0.625rem;
+    --sidebar-background: 210 40% 98%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 222 47% 11%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 178 77% 42%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 178 77% 42%;
+  }
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 178 77% 42%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 178 77% 42%;
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 178 77% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 178 77% 42%;
+  }
+}
+
+@layer utilities {
+  /* Faint engineering grid used behind the hero */
+  .bg-blueprint-grid {
+    background-image:
+      linear-gradient(to right, rgb(15 23 42 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(15 23 42 / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .bg-blueprint-grid-dark {
+    background-image:
+      linear-gradient(to right, rgb(248 250 252 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(248 250 252 / 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  }
+}
+
+/* Staged hero entrance — one sequence, then the page stays quiet */
+@keyframes codelaro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes codelaro-scale-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.rise-in {
+  animation: codelaro-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.scale-in {
+  animation: codelaro-scale-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Gentle perpetual float for hero interface fragments */
+@keyframes codelaro-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes codelaro-float-alt {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* Slow drift for the background glow */
+@keyframes codelaro-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(18px, -14px, 0) scale(1.06);
+  }
+}
+
+/* Soft pulse for connection nodes */
+@keyframes codelaro-node {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+.float-a {
+  animation: codelaro-float 6s ease-in-out infinite;
+}
+
+.float-b {
+  animation: codelaro-float-alt 7.5s ease-in-out infinite;
+}
+
+.drift-slow {
+  animation: codelaro-drift 14s ease-in-out infinite;
+}
+
+.node-pulse {
+  animation: codelaro-node 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in,
+  .scale-in,
+  .float-a,
+  .float-b,
+  .drift-slow,
+  .node-pulse {
+    animation: none;
+  }
+}
