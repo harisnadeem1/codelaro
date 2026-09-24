@@ -535,20 +535,44 @@ export function Hero() {
 							className="rise-in mt-6 max-w-xl text-base leading-relaxed text-slate-500 sm:text-lg"
 							style={{ animationDelay: '0.6s' }}
 						>
-							Codelaro designs and develops websites, web and mobile applications, custom software, and AI automation built to scale with your business.
+						Codelaro helps startups and growing businesses turn ambitious ideas into high-performing websites, custom software and AI-powered solutions.
 						</p>
 
 						<div
 							className="rise-in mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
 							style={{ animationDelay: '0.72s' }}
 						>
-							<Link
-								to="/contact"
-								className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand px-7 font-display text-base font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-600 hover:shadow-brand/40 active:scale-[0.98] sm:w-auto"
-							>
-								Talk to an Expert
-								<ArrowRight className="h-4 w-4" />
-							</Link>
+						<Link
+    to="/contact"
+    aria-label="Talk to a Codelaro development expert"
+    className="
+        group flex h-12 w-full
+        items-center justify-center gap-2
+        rounded-lg bg-brand px-7
+        font-display text-base font-semibold text-white
+        shadow-lg shadow-brand/25
+        transition-all duration-300
+        hover:bg-brand-600
+        hover:shadow-brand/40
+        active:scale-[0.98]
+		hover:-translate-y-0.5
+        sm:w-auto
+    "
+>
+    Talk to an Expert
+
+    <ArrowUpRight
+        className="
+            h-4 w-4
+            transition-transform duration-300
+            group-hover:translate-x-0.5
+            group-hover:-translate-y-0.5
+            motion-reduce:transform-none
+        "
+        strokeWidth={2}
+        aria-hidden="true"
+    />
+</Link>
 						
 						</div>
 

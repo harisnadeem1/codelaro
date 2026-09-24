@@ -5,33 +5,33 @@ export type Reason = {
 
 export const REASONS: Reason[] = [
 	{
-		title: 'Business before technology',
+		title: 'Business-First Thinking',
 		description:
-			'We start with the problem, the people and the outcome — then choose the technology that makes the most sense for your business.',
+			'We take time to understand your requirements, challenges and priorities before recommending the right technical approach.',
 	},
 	{
-		title: 'Built for what comes next',
+		title: 'Transparent Collaboration',
 		description:
-			'We create strong, scalable foundations so your product can evolve, handle growth and adapt without needing to be rebuilt from scratch.',
+			'Clear communication, defined milestones and regular updates keep you involved throughout development.',
 	},
 	{
-		title: 'Clarity at every step',
+		title: 'Engineering That Lasts',
 		description:
-			'No black boxes or unnecessary complexity. You see the progress, understand the decisions and always know what comes next.',
+			'We prioritize maintainable architecture, thoughtful implementation and reliable performance so your software can evolve.',
 	},
 	{
-		title: 'Quality without shortcuts',
+		title: 'End-to-End Delivery',
 		description:
-			'Thoughtful architecture, careful reviews and disciplined delivery help us build products that are reliable, maintainable and ready for real use.',
+			'From initial planning to development and deployment, we coordinate the technical work needed to bring your product to life.',
 	},
-	{
-		title: 'One partner, end to end',
-		description:
-			'From early thinking and product design to engineering, deployment and automation, we bring the pieces together under one accountable team.',
-	},
-	{
-		title: 'Thinking beyond launch',
-		description:
-			'Launch is a milestone, not the finish line. We build with future improvements, changing requirements and long-term growth in mind.',
-	},
+	// {
+	// 	title: 'One partner, end to end',
+	// 	description:
+	// 		'From early thinking and product design to engineering, deployment and automation, we bring the pieces together under one accountable team.',
+	// },
+	// {
+	// 	title: 'Thinking beyond launch',
+	// 	description:
+	// 		'Launch is a milestone, not the finish line. We build with future improvements, changing requirements and long-term growth in mind.',
+	// },
 ];

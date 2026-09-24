@@ -221,7 +221,7 @@ export function FinalCta() {
 									className="
 										group
 										inline-flex
-										min-h-14
+										min-h-12
 										w-full
 										items-center
 										justify-center
@@ -242,7 +242,7 @@ export function FinalCta() {
 										sm:w-auto
 									"
 								>
-									<span>Talk to an Expert</span>
+									<span>Let's Make It Happen</span>
 
 									<ArrowUpRight
 										className="
@@ -259,17 +259,7 @@ export function FinalCta() {
 									/>
 								</Link>
 
-								<p
-									className="
-										text-[12px]
-										leading-5
-										text-slate-500
-										sm:max-w-[320px]
-									"
-								>
-									No obligation. Just a clear
-									conversation about your project.
-								</p>
+								
 							</div>
 						</div>
 

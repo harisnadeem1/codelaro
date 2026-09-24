@@ -290,9 +290,11 @@ export default function HomePage() {
 		<main>
 			<Hero />
 
+			<Services />
+
+
 			<Credibility />
 
-			<Services />
 
 			<Solutions />
 

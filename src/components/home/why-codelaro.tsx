@@ -135,10 +135,10 @@ export function WhyCodelaro() {
 								lg:text-[3.75rem]
 							"
 						>
-							Technology should move your
+							A Technology Partner Built Around
 							<span className="text-brand">
 								{' '}
-								business forward.
+								Your Success
 							</span>
 						</h2>
 					</div>
@@ -162,11 +162,7 @@ export function WhyCodelaro() {
 									sm:text-base
 								"
 							>
-								We combine product thinking,
-								engineering and execution to build
-								digital products that solve real
-								problems — not technology for the
-								sake of technology.
+								We bring together strategic thinking, transparent collaboration and thoughtful engineering to deliver digital products designed around your business needs.
 							</p>
 
 							<div className="mt-6 flex items-center gap-3">
@@ -240,31 +236,31 @@ export function WhyCodelaro() {
 						"
 					>
 						{REASONS.map((reason, index) => {
-	const layout =
-		index % 4 === 0
-			? 'lg:col-span-7'
-			: index % 4 === 1
-				? 'lg:col-span-5'
-				: index % 4 === 2
-					? 'lg:col-span-5'
-					: 'lg:col-span-7';
+							const layout =
+								index % 4 === 0
+									? 'lg:col-span-7'
+									: index % 4 === 1
+										? 'lg:col-span-5'
+										: index % 4 === 2
+											? 'lg:col-span-5'
+											: 'lg:col-span-7';
 
-	/*
-	 * Alternating navy composition:
-	 *
-	 * Row 1: navy  | white
-	 * Row 2: white | navy
-	 * Row 3: navy  | white
-	 */
-	const featured =
-		index === 0 ||
-		index === 3 ||
-		index === 4;
+							/*
+							 * Alternating navy composition:
+							 *
+							 * Row 1: navy  | white
+							 * Row 2: white | navy
+							 * Row 3: navy  | white
+							 */
+							const featured =
+								index === 0 ||
+								index === 3 ||
+								index === 4;
 
-	return (
-		<article
-			key={reason.title}
-			className={`
+							return (
+								<article
+									key={reason.title}
+									className={`
 				group relative
 				overflow-hidden
 				rounded-[1.5rem]
@@ -278,15 +274,14 @@ export function WhyCodelaro() {
 
 				${layout}
 
-				${
-					featured
-						? `
+				${featured
+											? `
 							border-navy
 							bg-navy
 							text-white
 							shadow-[0_24px_60px_-35px_rgba(15,23,42,0.5)]
 						`
-						: `
+											: `
 							border-slate-200/80
 							bg-white/70
 							text-navy
@@ -295,33 +290,32 @@ export function WhyCodelaro() {
 							hover:bg-white
 							hover:shadow-[0_20px_50px_-35px_rgba(15,23,42,0.25)]
 						`
-				}
+										}
 			`}
-		>
-			{/* Top accent */}
-			<span
-				aria-hidden="true"
-				className={`
+								>
+									{/* Top accent */}
+									<span
+										aria-hidden="true"
+										className={`
 					absolute left-0 top-0
 					h-[2px]
 					bg-brand
 					transition-all
 					duration-500
 
-					${
-						featured
-							? 'w-16'
-							: 'w-0 group-hover:w-full'
-					}
+					${featured
+												? 'w-16'
+												: 'w-0 group-hover:w-full'
+											}
 				`}
-			/>
+									/>
 
-			{/* Subtle navy-card decoration */}
-			{featured && (
-				<>
-					<div
-						aria-hidden="true"
-						className="
+									{/* Subtle navy-card decoration */}
+									{featured && (
+										<>
+											<div
+												aria-hidden="true"
+												className="
 							absolute
 							-right-20 -top-20
 							h-64 w-64
@@ -329,74 +323,72 @@ export function WhyCodelaro() {
 							bg-brand/[0.07]
 							blur-3xl
 						"
-					/>
+											/>
 
-					<div
-						aria-hidden="true"
-						className="
+											<div
+												aria-hidden="true"
+												className="
 							absolute
 							-bottom-16 -right-16
 							h-40 w-40
 							rounded-full
 							border border-white/[0.04]
 						"
-					/>
-				</>
-			)}
+											/>
+										</>
+									)}
 
-			<div className="relative z-10">
-				{/* Marker */}
-				<div className="flex items-center gap-4">
-					<span
-						className={`
+									<div className="relative z-10">
+										{/* Marker */}
+										<div className="flex items-center gap-4">
+											<span
+												className={`
 							grid h-9 w-9
 							shrink-0
 							place-items-center
 							rounded-full
 							border
 
-							${
-								featured
-									? `
+							${featured
+														? `
 										border-white/10
 										bg-white/[0.06]
 										text-brand
 									`
-									: `
+														: `
 										border-slate-200
 										bg-white
 										text-brand
 									`
-							}
+													}
 						`}
-					>
-						<Sparkles
-							className="h-3.5 w-3.5"
-							strokeWidth={1.8}
-							aria-hidden="true"
-						/>
-					</span>
+											>
+												<Sparkles
+													className="h-3.5 w-3.5"
+													strokeWidth={1.8}
+													aria-hidden="true"
+												/>
+											</span>
 
-					<span
-						aria-hidden="true"
-						className={`
+											<span
+												aria-hidden="true"
+												className={`
 							h-px flex-1
 							transition-colors
 							duration-300
 
-							${
-								featured
-									? 'bg-white/10'
-									: 'bg-slate-200 group-hover:bg-brand/30'
-							}
+							${featured
+														? 'bg-white/10'
+														: 'bg-slate-200 group-hover:bg-brand/30'
+													}
 						`}
-					/>
-				</div>
+											/>
+										</div>
 
-				{/* Content */}
-				<div className="mt-7">
-					<h3
-						className={`
+										{/* Content */}
+										<div className="mt-7">
+											<h3
+												className={`
 							max-w-md
 							font-display
 							text-[1.4rem]
@@ -405,18 +397,17 @@ export function WhyCodelaro() {
 							tracking-[-0.025em]
 							sm:text-[1.55rem]
 
-							${
-								featured
-									? 'text-white'
-									: 'text-navy'
-							}
+							${featured
+														? 'text-white'
+														: 'text-navy'
+													}
 						`}
-					>
-						{reason.title}
-					</h3>
+											>
+												{reason.title}
+											</h3>
 
-					<p
-						className={`
+											<p
+												className={`
 							mt-3
 							max-w-xl
 							text-[14px]
@@ -424,20 +415,19 @@ export function WhyCodelaro() {
 							sm:text-[16px]
 							sm:leading-7
 
-							${
-								featured
-									? 'text-slate-300'
-									: 'text-slate-500'
-							}
+							${featured
+														? 'text-slate-300'
+														: 'text-slate-500'
+													}
 						`}
-					>
-						{reason.description}
-					</p>
-				</div>
-			</div>
-		</article>
-	);
-})}
+											>
+												{reason.description}
+											</p>
+										</div>
+									</div>
+								</article>
+							);
+						})}
 					</div>
 				</div>
 
@@ -484,7 +474,7 @@ export function WhyCodelaro() {
 					</div>
 
 					<Link
-						to="#contact"
+						to="/contact"
 						aria-label="Start a conversation with Codelaro"
 						className="
 							group
@@ -492,7 +482,7 @@ export function WhyCodelaro() {
 							w-fit items-center
 							justify-center gap-3
 							rounded-xl
-							bg-navy
+							bg-navy-800
 							px-5
 							font-display
 							text-[16px]
@@ -506,7 +496,7 @@ export function WhyCodelaro() {
 							active:scale-[0.98]
 						"
 					>
-						Start a conversation
+						Start a Conversation
 
 						<span
 							className="
@@ -525,6 +515,8 @@ export function WhyCodelaro() {
 									duration-300
 									group-hover:-translate-y-0.5
 									group-hover:translate-x-0.5
+            group-hover:text-brand
+
 								"
 								aria-hidden="true"
 							/>

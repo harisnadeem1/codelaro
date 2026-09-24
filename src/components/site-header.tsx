@@ -6,6 +6,7 @@ import {
 	Menu,
 	Sparkles,
 	X,
+	ArrowUpRight,
 } from 'lucide-react';
 
 import { NAV_ITEMS, type NavItem } from '@/data/navigation';
@@ -388,8 +389,8 @@ function MobileNav({
 
 							const active = item.menu
 								? item.menu.links.some((link) =>
-										location.pathname.startsWith(link.href),
-									)
+									location.pathname.startsWith(link.href),
+								)
 								: item.href === '/'
 									? location.pathname === '/'
 									: location.pathname.startsWith(item.href);
@@ -610,29 +611,34 @@ function MobileNav({
 						</div>
 
 						<Link
-							to="/start-a-project"
+							to="/contact"
 							onClick={onClose}
+							aria-label="Contact Codelaro"
 							className="
-								group flex min-h-11 w-full
-								items-center justify-center gap-2
-								rounded-xl bg-brand
-								font-display text-base font-semibold
-								text-white
-								shadow-lg shadow-brand/20
-								transition-all duration-200
-								hover:-translate-y-0.5
-								hover:shadow-brand/30
-								active:translate-y-0
-							"
+        group flex min-h-11 w-full
+        items-center justify-center gap-2
+        rounded-xl bg-brand
+        font-display text-base font-semibold
+        text-white
+        shadow-lg shadow-brand/20
+        transition-all duration-300
+        hover:-translate-y-0.5
+        hover:shadow-brand/30
+        active:translate-y-0
+    "
 						>
-							Start a Project
+							Contact Us
 
-							<ArrowRight
+							<ArrowUpRight
 								className="
-									h-4 w-4
-									transition-transform duration-200
-									group-hover:translate-x-0.5
-								"
+            h-4 w-4
+            transition-transform duration-300
+            group-hover:translate-x-0.5
+            group-hover:-translate-y-0.5
+            motion-reduce:transform-none
+        "
+								strokeWidth={2}
+								aria-hidden="true"
 							/>
 						</Link>
 					</div>
@@ -676,52 +682,59 @@ export function SiteHeader() {
 	}, [location.pathname]);
 
 	useEffect(() => {
-	const solutionsSection = document.getElementById('solutions');
+		// Always restore the header when navigating.
+		setHideOnSolutions(false);
 
-	if (!solutionsSection) return;
+		// The header should only hide on the homepage.
+		if (location.pathname !== '/') {
+			return;
+		}
 
-	const observer = new IntersectionObserver(
-		([entry]) => {
-			// Only hide the header on desktop.
-			if (window.innerWidth >= 1024) {
-				setHideOnSolutions(entry.isIntersecting);
-			} else {
+		const solutionsSection = document.getElementById('solutions');
+
+		if (!solutionsSection) {
+			return;
+		}
+
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				setHideOnSolutions(
+					window.innerWidth >= 1024 && entry.isIntersecting
+				);
+			},
+			{
+				threshold: 0.1,
+			}
+		);
+
+		observer.observe(solutionsSection);
+
+		const handleResize = () => {
+			if (window.innerWidth < 1024) {
 				setHideOnSolutions(false);
 			}
-		},
-		{
-			threshold: 0.1,
-		},
-	);
+		};
 
-	observer.observe(solutionsSection);
+		window.addEventListener('resize', handleResize);
 
-	const handleResize = () => {
-		if (window.innerWidth < 1024) {
-			setHideOnSolutions(false);
-		}
-	};
-
-	window.addEventListener('resize', handleResize);
-
-	return () => {
-		observer.disconnect();
-		window.removeEventListener('resize', handleResize);
-	};
-}, [location.pathname]);
+		return () => {
+			observer.disconnect();
+			window.removeEventListener('resize', handleResize);
+		};
+	}, [location.pathname]);
 
 	return (
 		<header
-	className={cn(
-		'fixed inset-x-0 top-0 z-50',
-		'transition-all duration-500 ease-out',
+			className={cn(
+				'fixed inset-x-0 top-0 z-50',
+				'transition-all duration-500 ease-out',
 
-		scrolled ? 'px-3 pt-3 sm:px-5' : 'px-0 pt-0',
+				scrolled ? 'px-3 pt-3 sm:px-5' : 'px-0 pt-0',
 
-		hideOnSolutions &&
-			'lg:-translate-y-full lg:pointer-events-none lg:opacity-0',
-	)}
->
+				hideOnSolutions &&
+				'lg:-translate-y-full lg:pointer-events-none lg:opacity-0',
+			)}
+		>
 			<div
 				className={cn(
 					'mx-auto flex w-full max-w-9xl',
@@ -730,21 +743,21 @@ export function SiteHeader() {
 
 					scrolled
 						? [
-								'h-16',
-								'rounded-2xl',
-								'border border-white/80',
-								'bg-white/90',
-								'px-4 sm:px-6',
-								'backdrop-blur-xl',
-								'shadow-[0_16px_45px_-18px_rgba(15,23,42,0.28)]',
-							]
+							'h-16',
+							'rounded-2xl',
+							'border border-white/80',
+							'bg-white/90',
+							'px-4 sm:px-6',
+							'backdrop-blur-xl',
+							'shadow-[0_16px_45px_-18px_rgba(15,23,42,0.28)]',
+						]
 						: [
-								'h-16 md:h-20',
-								'border-b border-transparent',
-								'bg-transparent',
-								'px-5 sm:px-8',
-								'shadow-none',
-							],
+							'h-16 md:h-20',
+							'border-b border-transparent',
+							'bg-transparent',
+							'px-5 sm:px-8',
+							'shadow-none',
+						],
 				)}
 			>
 				{/* Logo */}
@@ -756,30 +769,35 @@ export function SiteHeader() {
 				{/* Right side */}
 				<div className="flex items-center gap-3">
 					<Link
-						to="/start-a-project"
+						to="/contact"
+						aria-label="Contact Codelaro"
 						className="
-							group hidden h-11 items-center gap-2
-							rounded-lg bg-brand px-5
-							font-display text-base font-semibold
-							text-white
-							shadow-lg shadow-brand/20
-							transition-all duration-300
-							hover:-translate-y-0.5
-							hover:bg-brand-600
-							hover:shadow-brand/30
-							active:translate-y-0
-							active:scale-[0.98]
-							sm:flex
-						"
+        group hidden h-11 items-center gap-2
+        rounded-lg bg-brand px-5
+        font-display text-base font-semibold
+        text-white
+        shadow-lg shadow-brand/20
+        transition-all duration-300
+        hover:-translate-y-0.5
+        hover:bg-brand-600
+        hover:shadow-brand/30
+        active:translate-y-0
+        active:scale-[0.98]
+        sm:flex
+    "
 					>
-						Start a Project
+						Contact Us
 
-						<ArrowRight
+						<ArrowUpRight
 							className="
-								h-4 w-4
-								transition-transform duration-200
-								group-hover:translate-x-0.5
-							"
+            h-4 w-4
+            transition-transform duration-300
+            group-hover:translate-x-0.5
+            group-hover:-translate-y-0.5
+            motion-reduce:transform-none
+        "
+							strokeWidth={2}
+							aria-hidden="true"
 						/>
 					</Link>
 

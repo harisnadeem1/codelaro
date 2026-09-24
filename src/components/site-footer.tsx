@@ -234,141 +234,87 @@ export function SiteFooter() {
 				================================================= */}
 
 				<div
-					className="
-						grid
-						gap-8
-						border-b border-white/10
-						py-12
-						md:grid-cols-12
-						md:items-end
-						md:py-14
-						lg:gap-12
-					"
-				>
-					{/* Brand */}
+    className="
+        grid gap-10
+        border-b border-white/10
+        py-12
+        md:grid-cols-12
+        md:items-center
+        md:gap-12
+        md:py-14
+        lg:gap-20
+    "
+>
+    {/* Left: Logo & Brand Description */}
 
-					<div className="md:col-span-7">
-						<Link
-							to="/"
-							aria-label="Codelaro home"
-							className="
-								group
-								inline-flex
-								items-center
-								gap-3
-							"
-						>
-							<span
-								className="
-									grid h-9 w-9
-									place-items-center
-									rounded-lg
-									border border-white/10
-									bg-white/[0.04]
-									font-mono
-									text-[12px]
-									font-bold
-									text-brand
-									transition-colors
-									duration-300
-									group-hover:border-brand/30
-								"
-							>
-								{'</>'}
-							</span>
+    <div className="md:col-span-5">
+        <Link
+            to="/"
+            aria-label="Codelaro home"
+            className="group inline-flex items-center"
+        >
+            <img
+                src="/logo/codelaro_svg/logo_white.svg"
+                alt="Codelaro"
+                width={160}
+                height={44}
+                loading="lazy"
+                className="
+                    h-11 w-auto
+                    object-contain
+                    transition-opacity duration-300
+                    group-hover:opacity-90
+                "
+            />
+        </Link>
 
-							<span
-								className="
-									font-display
-									text-xl
-									font-semibold
-									tracking-[-0.025em]
-									text-white
-								"
-							>
-								Codelaro
-							</span>
-						</Link>
+        <p
+            className="
+                mt-6 max-w-md
+                text-[14px]
+                leading-7
+                text-slate-400
+                sm:text-[15px]
+            "
+        >
+            At Codelaro, we believe great technology begins
+            with clear thinking and thoughtful execution.
+            Every detail matters, and every project is an
+            opportunity to build something meaningful.
+        </p>
+    </div>
 
-						<h2
-							className="
-								mt-7
-								max-w-2xl
-								font-display
-								text-[2rem]
-								font-semibold
-								leading-[1.08]
-								tracking-[-0.04em]
-								text-white
-								sm:text-[2.5rem]
-								lg:text-[3rem]
-							"
-						>
-							We build technology
-							<span className="text-slate-500">
-								{' '}
-								that moves businesses forward.
-							</span>
-						</h2>
-					</div>
+    {/* Right: Brand Statement */}
 
-					{/* Brand description */}
+    <div
+        className="
+            flex
+            md:col-span-7
+            md:justify-end
+        "
+    >
+        <h2
+            className="
+                max-w-2xl
+                font-display
+                text-[2rem]
+                font-semibold
+                leading-[1.12]
+                tracking-[-0.04em]
+                text-white
+                sm:text-[2.5rem]
+                lg:text-[3rem]
+                xl:text-[3.4rem]
+            "
+        >
+            Clarity in thinking.
 
-					<div
-						className="
-							md:col-span-5
-							md:flex
-							md:justify-end
-						"
-					>
-						<div className="max-w-md">
-							<p
-								className="
-									text-[14px]
-									leading-7
-									text-slate-400
-								"
-							>
-								Codelaro is a software development
-								and technology company helping
-								businesses design, build, automate
-								and scale digital products.
-							</p>
-
-							<Link
-								to="/contact"
-								aria-label="Talk to Codelaro about your project"
-								className="
-									group mt-5
-									inline-flex
-									items-center
-									gap-2
-									font-display
-									text-[13px]
-									font-semibold
-									text-white
-									transition-colors
-									duration-300
-									hover:text-brand
-								"
-							>
-								Talk to our team
-
-								<ArrowUpRight
-									className="
-										h-3.5 w-3.5
-										text-brand
-										transition-transform
-										duration-300
-										group-hover:-translate-y-0.5
-										group-hover:translate-x-0.5
-									"
-									aria-hidden="true"
-								/>
-							</Link>
-						</div>
-					</div>
-				</div>
+            <span className="block text-slate-500">
+                Care in execution.
+            </span>
+        </h2>
+    </div>
+</div>
 
 				{/* =================================================
 				    Navigation
@@ -385,7 +331,7 @@ export function SiteFooter() {
 						lg:py-14
 					"
 				>
-					
+
 
 					{/* =============================================
 					    Link groups
@@ -465,8 +411,8 @@ export function SiteFooter() {
 				    Bottom bar
 				================================================= */}
 
-			<div
-	className="
+				<div
+					className="
 		flex
 		flex-col
 		gap-5
@@ -476,28 +422,28 @@ export function SiteFooter() {
 		sm:items-center
 		sm:justify-between
 	"
->
-	{/* Copyright */}
-	<p className="text-[11px] text-slate-500">
-		© {new Date().getFullYear()} Codelaro. All rights reserved.
-	</p>
+				>
+					{/* Copyright */}
+					<p className="text-[11px] text-slate-500">
+						© {new Date().getFullYear()} Codelaro. All rights reserved.
+					</p>
 
-	{/* Social links */}
-	<div
-		className="
+					{/* Social links */}
+					<div
+						className="
 			flex
 			items-center
 			gap-2
 		"
-		aria-label="Codelaro social media"
-	>
-		{/* LinkedIn */}
-		<a
-			href="YOUR_LINKEDIN_URL"
-			target="_blank"
-			rel="noopener noreferrer"
-			aria-label="Follow Codelaro on LinkedIn"
-			className="
+						aria-label="Codelaro social media"
+					>
+						{/* LinkedIn */}
+						<a
+							href="YOUR_LINKEDIN_URL"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Follow Codelaro on LinkedIn"
+							className="
 				group
 				grid h-8 w-8
 				place-items-center
@@ -509,12 +455,12 @@ export function SiteFooter() {
 				hover:border-brand/40
 				hover:bg-brand/[0.08]
 			"
-		>
-			<img
-				src="/icons/linkedin.svg"
-				alt=""
-				aria-hidden="true"
-				className="
+						>
+							<img
+								src="/icons/linkedin.svg"
+								alt=""
+								aria-hidden="true"
+								className="
 					h-3.5 w-3.5
 					object-contain
 					opacity-60
@@ -523,16 +469,16 @@ export function SiteFooter() {
 					group-hover:scale-105
 					group-hover:opacity-100
 				"
-			/>
-		</a>
+							/>
+						</a>
 
-		{/* X / Twitter */}
-		<a
-			href="YOUR_X_URL"
-			target="_blank"
-			rel="noopener noreferrer"
-			aria-label="Follow Codelaro on X"
-			className="
+						{/* X / Twitter */}
+						<a
+							href="YOUR_X_URL"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Follow Codelaro on X"
+							className="
 				group
 				grid h-8 w-8
 				place-items-center
@@ -544,12 +490,12 @@ export function SiteFooter() {
 				hover:border-brand/40
 				hover:bg-brand/[0.08]
 			"
-		>
-			<img
-				src="/icons/x.svg"
-				alt=""
-				aria-hidden="true"
-				className="
+						>
+							<img
+								src="/icons/x.svg"
+								alt=""
+								aria-hidden="true"
+								className="
 					h-3.5 w-3.5
 					object-contain
 					opacity-60
@@ -558,16 +504,16 @@ export function SiteFooter() {
 					group-hover:scale-105
 					group-hover:opacity-100
 				"
-			/>
-		</a>
+							/>
+						</a>
 
-		{/* Facebook */}
-		<a
-			href="YOUR_FACEBOOK_URL"
-			target="_blank"
-			rel="noopener noreferrer"
-			aria-label="Follow Codelaro on Facebook"
-			className="
+						{/* Facebook */}
+						<a
+							href="YOUR_FACEBOOK_URL"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Follow Codelaro on Facebook"
+							className="
 				group
 				grid h-8 w-8
 				place-items-center
@@ -579,12 +525,12 @@ export function SiteFooter() {
 				hover:border-brand/40
 				hover:bg-brand/[0.08]
 			"
-		>
-			<img
-				src="/icons/facebook.svg"
-				alt=""
-				aria-hidden="true"
-				className="
+						>
+							<img
+								src="/icons/facebook.svg"
+								alt=""
+								aria-hidden="true"
+								className="
 					h-3.5 w-3.5
 					object-contain
 					opacity-60
@@ -593,16 +539,16 @@ export function SiteFooter() {
 					group-hover:scale-105
 					group-hover:opacity-100
 				"
-			/>
-		</a>
+							/>
+						</a>
 
-		{/* Instagram */}
-		<a
-			href="YOUR_INSTAGRAM_URL"
-			target="_blank"
-			rel="noopener noreferrer"
-			aria-label="Follow Codelaro on Instagram"
-			className="
+						{/* Instagram */}
+						<a
+							href="YOUR_INSTAGRAM_URL"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Follow Codelaro on Instagram"
+							className="
 				group
 				grid h-8 w-8
 				place-items-center
@@ -614,12 +560,12 @@ export function SiteFooter() {
 				hover:border-brand/40
 				hover:bg-brand/[0.08]
 			"
-		>
-			<img
-				src="/icons/instagram.svg"
-				alt=""
-				aria-hidden="true"
-				className="
+						>
+							<img
+								src="/icons/instagram.svg"
+								alt=""
+								aria-hidden="true"
+								className="
 					h-3.5 w-3.5
 					object-contain
 					opacity-60
@@ -628,51 +574,51 @@ export function SiteFooter() {
 					group-hover:scale-105
 					group-hover:opacity-100
 				"
-			/>
-		</a>
-	</div>
+							/>
+						</a>
+					</div>
 
-	{/* Legal */}
-	<div
-		className="
+					{/* Legal */}
+					<div
+						className="
 			flex
 			flex-wrap
 			items-center
 			gap-x-5
 			gap-y-2
 		"
-	>
-		<Link
-			to="/privacy-policy"
-			className="
+					>
+						<Link
+							to="/privacy-policy"
+							className="
 				text-[13px]
 				text-slate-500
 				transition-colors
 				duration-300
 				hover:text-slate-300
 			"
-		>
-			Privacy
-		</Link>
+						>
+							Privacy
+						</Link>
 
-		<Link
-			to="/terms"
-			className="
+						<Link
+							to="/terms"
+							className="
 				text-[13px]
 				text-slate-500
 				transition-colors
 				duration-300
 				hover:text-slate-300
 			"
-		>
-			Terms
-		</Link>
+						>
+							Terms
+						</Link>
 
-		<p className="text-[12px] text-slate-600">
-			Built for ambitious teams worldwide.
-		</p>
-	</div>
-</div>
+						<p className="text-[12px] text-slate-600">
+							Built for ambitious teams worldwide.
+						</p>
+					</div>
+				</div>
 			</div>
 		</footer>
 	);
