@@ -108,7 +108,7 @@ function ProductBuildCard() {
 						</p>
 
 						<p className="mt-0.5 text-lg font-bold text-navy">
-							72%
+							86%
 						</p>
 					</div>
 				</div>
@@ -341,7 +341,7 @@ function AiChip() {
 			"
 			style={{ animationDelay: '1.1s' }}
 		>
-			<span className="grid h-8 w-8 place-items-center rounded-full bg-navy text-brand">
+			<span className="grid h-8 w-8 place-items-center rounded-full bg-brand text-white">
 				<Cpu className="h-4 w-4" strokeWidth={2} />
 			</span>
 

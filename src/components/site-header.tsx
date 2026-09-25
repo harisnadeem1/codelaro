@@ -53,133 +53,156 @@ function MegaMenuPanel({
 
 	const { links, featured } = item.menu;
 
+	const isCompany = item.label === 'Company';
+	const showFeatured = item.label === 'Services' && featured;
+
 	return (
-		<div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3">
+		<div
+			className="
+				absolute left-1/2 top-full z-50
+				w-max -translate-x-1/2 pt-3
+			"
+		>
 			<div
-				className={cn(
-					'overflow-hidden rounded-[20px]',
-					'border border-slate-200/80',
-					'bg-white/95 backdrop-blur-xl',
-					'shadow-[0_24px_70px_-24px_rgba(15,23,42,0.28)]',
-					'ring-1 ring-navy/[0.03]',
-					item.panelWidth,
-				)}
+				className="
+					w-max overflow-hidden
+					rounded-xl
+					border border-slate-200
+					bg-white p-2
+					shadow-[0_16px_45px_-15px_rgba(15,23,42,0.18)]
+				"
 			>
-				{/* Menu heading */}
-				<div className="flex items-center gap-2 border-b border-slate-100 px-5 py-3.5">
-					<span className="h-1.5 w-1.5 rounded-full bg-brand" />
+				{/* Navigation */}
 
-					<span className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-400">
-						{item.label}
-					</span>
-				</div>
-
-				{/* Links */}
-				<div
+				<nav
+					aria-label={`${item.label} submenu`}
 					className={cn(
-						'grid gap-1 p-3',
-						links.length > 4 ? 'grid-cols-2' : 'grid-cols-1',
+						'grid gap-x-2 gap-y-1',
+						isCompany
+							? 'grid-cols-[max-content]'
+							: 'grid-cols-[max-content_max-content]',
 					)}
 				>
 					{links.map((link) => (
 						<Link
-							key={link.label}
+							key={link.href}
 							to={link.href}
 							onClick={onNavigate}
 							className="
-								group flex items-start gap-3.5 rounded-xl
-								border border-transparent p-3
+								group flex min-h-[42px]
+								w-full items-center
+								justify-between gap-10
+								whitespace-nowrap
+								rounded-lg px-3 py-2.5
+								text-[14px] font-medium
+								text-navy
 								transition-all duration-200
-								hover:border-brand/10
-								hover:bg-brand/[0.045]
+								hover:bg-navy/85
+								hover:text-white
+								focus-visible:bg-navy
+								focus-visible:text-white
+								focus-visible:outline-none
+							"
+						>
+							<span className="whitespace-nowrap">
+								{link.label}
+							</span>
+
+							<ArrowUpRight
+								className="
+									h-4 w-4 shrink-0
+									opacity-50
+									transition-all duration-200
+									group-hover:translate-x-0.5
+									group-hover:-translate-y-0.5
+									group-hover:opacity-100
+								"
+								strokeWidth={1.7}
+								aria-hidden="true"
+							/>
+						</Link>
+					))}
+				</nav>
+
+				{/* Featured section — Services only */}
+
+				{showFeatured && (
+					<Link
+						to={featured.href}
+						onClick={onNavigate}
+						className="
+							group mt-3 flex
+							items-center justify-between
+							gap-8
+							border-t border-slate-200
+							px-3 pb-1 pt-4
+							transition-colors duration-200
+							focus-visible:rounded-md
+							focus-visible:outline
+							focus-visible:outline-2
+							focus-visible:outline-navy
+						"
+					>
+						{/* Featured Content */}
+
+						<div className="min-w-0">
+							<h4
+								className="
+									text-[14px] font-semibold
+									tracking-tight text-navy
+								"
+							>
+								{featured.title}
+							</h4>
+
+							<p
+								className="
+									mt-1 text-[13px]
+									leading-relaxed text-slate-500
+								"
+							>
+								{featured.description}
+							</p>
+						</div>
+
+						{/* Featured CTA */}
+
+						<div
+							className="
+								flex shrink-0 items-center
+								gap-2 whitespace-nowrap
+								text-[14px] font-semibold
+								text-navy
 							"
 						>
 							<span
 								className="
-									mt-0.5 grid h-9 w-9 shrink-0
-									place-items-center rounded-lg
-									bg-brand/10 text-brand
-									transition-all duration-200
-									group-hover:bg-brand
-									group-hover:text-white
+									border-b border-transparent
+									pb-0.5
+									transition-colors duration-200
+									group-hover:border-navy
 								"
 							>
-								<link.icon
-									className="h-[18px] w-[18px]"
-									strokeWidth={1.8}
-								/>
+								{featured.cta}
 							</span>
 
-							<span className="min-w-0">
-								<span className="flex items-center gap-1.5 text-sm font-semibold text-navy">
-									{link.label}
-
-									<ArrowRight
-										className="
-											h-3.5 w-3.5 -translate-x-1
-											opacity-0 transition-all duration-200
-											group-hover:translate-x-0
-											group-hover:opacity-100
-										"
-									/>
-								</span>
-
-								<span className="mt-0.5 block text-[13px] leading-snug text-slate-500">
-									{link.description}
-								</span>
-							</span>
-						</Link>
-					))}
-				</div>
-
-				{/* Featured area */}
-				<Link
-					to={featured.href}
-					onClick={onNavigate}
-					className="
-						group flex items-center justify-between gap-4
-						border-t border-slate-100 bg-slate-50/70
-						px-5 py-3.5 transition-colors
-						hover:bg-brand/[0.06]
-					"
-				>
-					<div className="flex min-w-0 items-center gap-3">
-						<span
-							className="
-								grid h-9 w-9 shrink-0 place-items-center
-								rounded-lg bg-navy text-brand
-							"
-						>
-							<Sparkles className="h-4 w-4" strokeWidth={1.8} />
-						</span>
-
-						<span>
-							<span className="block text-sm font-semibold text-navy">
-								{featured.title}
-							</span>
-
-							<span className="block text-[13px] text-slate-500">
-								{featured.description}
-							</span>
-						</span>
-					</div>
-
-					<span className="flex shrink-0 items-center gap-1.5 text-sm font-semibold text-brand">
-						{featured.cta}
-
-						<ArrowRight
-							className="
-								h-4 w-4 transition-transform duration-200
-								group-hover:translate-x-1
-							"
-						/>
-					</span>
-				</Link>
+							<ArrowUpRight
+								className="
+									h-4 w-4
+									transition-transform duration-200
+									group-hover:translate-x-0.5
+									group-hover:-translate-y-0.5
+								"
+								strokeWidth={1.8}
+								aria-hidden="true"
+							/>
+						</div>
+					</Link>
+				)}
 			</div>
 		</div>
 	);
 }
-
 /* -------------------------------------------------------------------------- */
 /*                                Desktop Nav                                 */
 /* -------------------------------------------------------------------------- */
@@ -554,27 +577,39 @@ function MobileNav({
 												))}
 											</ul>
 
-											<Link
-												to={item.menu.featured.href}
-												onClick={onClose}
-												className="
-													group mt-1 flex items-center
-													justify-between rounded-xl
-													bg-white px-3 py-2.5
-													text-[12px] font-semibold
-													text-brand shadow-sm
-												"
-											>
-												{item.menu.featured.cta}
-
-												<ArrowRight
+											{/* Featured CTA — Services only */}
+											{item.label === 'Services' && item.menu.featured && (
+												<Link
+													to={item.menu.featured.href}
+													onClick={onClose}
 													className="
-														h-3.5 w-3.5
-														transition-transform
-														group-hover:translate-x-0.5
-													"
-												/>
-											</Link>
+            group mt-2 flex items-center
+            justify-between gap-3
+            border-t border-slate-200
+            px-3 py-3
+            text-[13px] font-semibold
+            text-navy
+            transition-colors duration-200
+            hover:text-navy/70
+            focus-visible:outline
+            focus-visible:outline-2
+            focus-visible:outline-navy
+        "
+												>
+													<span>{item.menu.featured.cta}</span>
+
+													<ArrowUpRight
+														className="
+                h-4 w-4 shrink-0
+                transition-transform duration-200
+                group-hover:translate-x-0.5
+                group-hover:-translate-y-0.5
+            "
+														strokeWidth={1.8}
+														aria-hidden="true"
+													/>
+												</Link>
+											)}
 										</div>
 									)}
 								</li>

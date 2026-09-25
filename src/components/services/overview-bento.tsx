@@ -1,109 +1,101 @@
+import { useState } from 'react';
 import { Link } from 'react-router';
-import { ArrowUpRight } from 'lucide-react';
-import { SERVICES, type Service, type ServiceSpan } from '@/data/services';
-import { cn } from '@/lib/utils';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
 
-const SPAN_CLASSES: Record<ServiceSpan, string> = {
-	featured: 'md:col-span-2 lg:col-span-2 lg:row-span-2',
-	wide: 'md:col-span-2 lg:col-span-2',
-	standard: 'md:col-span-1 lg:col-span-1',
-};
+import { SERVICES, type Service } from '@/data/services';
 
-function FeaturedVisual() {
-	return (
-		<div className="relative mt-6 hidden overflow-hidden rounded-xl border border-slate-200/80 bg-[#0F172A] p-4 font-mono text-[12px] leading-relaxed lg:block">
-			<div className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark opacity-40" />
-			<div className="relative space-y-1.5">
-				<p>
-					<span className="text-slate-500">const</span>{' '}
-					<span className="text-brand">product</span>{' '}
-					<span className="text-slate-500">=</span>{' '}
-					<span className="text-slate-300">build(&#123;</span>
-				</p>
-				<p className="pl-4 text-slate-300">
-					framework: <span className="text-brand">'react-router'</span>,
-				</p>
-				<p className="pl-4 text-slate-300">
-					render: <span className="text-brand">'ssr'</span>,
-				</p>
-				<p className="pl-4 text-slate-300">
-					perf: <span className="text-brand">'edge-ready'</span>,
-				</p>
-				<p className="text-slate-300">
-					<span className="text-slate-500">&#125;)</span>
-				</p>
-			</div>
-			<span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-brand/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand">
-				<span className="h-1.5 w-1.5 rounded-full bg-brand" />
-				shipping
-			</span>
-		</div>
-	);
-}
+/* -------------------------------------------------------------------------- */
+/* Service Card                                                               */
+/* -------------------------------------------------------------------------- */
 
-function ServiceTile({ service }: { service: Service }) {
+function ServiceCard({ service }: { service: Service }) {
 	const Icon = service.icon;
-	const isFeatured = service.span === 'featured';
-	const isAccent = service.accent;
 
 	return (
 		<Link
 			to={`/services/${service.slug}`}
-			className={cn(
-				'group relative flex flex-col overflow-hidden rounded-2xl border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy/10 active:scale-[0.99] sm:p-6',
-				isAccent
-					? 'border-brand/30 bg-brand/[0.06] hover:border-brand/50'
-					: 'border-slate-200/80 bg-white hover:border-brand/40',
-				isFeatured && 'justify-between',
-			)}
+			className="
+				group flex h-full min-w-0 flex-col
+				rounded-2xl border border-slate-200/80
+				bg-white p-6
+				transition-all duration-300
+				hover:-translate-y-1
+				hover:border-brand/35
+				hover:shadow-[0_16px_40px_-20px_rgba(15,23,42,0.15)]
+				focus-visible:outline-2
+				focus-visible:outline-offset-2
+				focus-visible:outline-brand
+				motion-reduce:transform-none
+				sm:p-7
+			"
 		>
-			<span className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 bg-brand transition-transform duration-300 group-hover:scale-x-100" />
+			{/* Icon and Title */}
 
-			<div className={cn('flex items-start gap-4', isFeatured && 'lg:items-start')}>
-				<span
-					className={cn(
-						'grid h-11 w-11 shrink-0 place-items-center rounded-xl transition-colors duration-300',
-						isAccent
-							? 'bg-brand text-white'
-							: 'bg-brand/10 text-brand group-hover:bg-brand group-hover:text-white',
-					)}
+			<div className="flex items-center gap-3.5">
+				<div
+					className="
+						grid h-9 w-9 shrink-0
+						place-items-center rounded-xl
+						border border-slate-200
+						bg-slate-50 text-navy
+						transition-colors duration-300
+						group-hover:border-brand/20
+						group-hover:bg-brand/[0.08]
+						group-hover:text-brand
+					"
 				>
-					<Icon className="h-5 w-5" strokeWidth={1.9} />
-				</span>
-				<div className="min-w-0">
-					<h3
-						className={cn(
-							'font-display font-semibold tracking-tight text-navy',
-							isFeatured ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg',
-						)}
-					>
-						{service.title}
-					</h3>
+					<Icon
+						className="h-4 w-4"
+						strokeWidth={1.7}
+						aria-hidden="true"
+					/>
 				</div>
+
+				<h3
+					className="
+						min-w-0 font-display
+						text-[15px] font-semibold
+						leading-snug tracking-tight
+						text-navy
+						sm:text-[16px]
+					"
+				>
+					{service.title}
+				</h3>
 			</div>
 
+			{/* Description */}
+
 			<p
-				className={cn(
-					'mt-4 text-[14px] leading-relaxed text-slate-500',
-					isFeatured ? 'sm:text-[15px]' : 'sm:text-sm',
-					isFeatured && 'max-w-md',
-				)}
+				className="
+					mt-5 text-[14px]
+					leading-[1.75]
+					text-slate-500
+				"
 			>
 				{service.tagline}
 			</p>
 
-			{isFeatured && <FeaturedVisual />}
+			{/* Footer */}
 
-			<div className={cn('mt-auto', isFeatured ? 'pt-6' : 'pt-5')}>
+			<div className="mt-auto flex items-center justify-start gap-3 pt-4">
+				<span className="text-[13px] font-semibold text-navy transition-colors duration-300 group-hover:text-brand-700">
+					Explore Service
+				</span>
+
 				<span
-					className={cn(
-						'inline-flex items-center gap-1 text-[13px] font-semibold transition-colors',
-						isAccent ? 'text-brand-700' : 'text-navy group-hover:text-brand',
-					)}
+					className="
+		
+		"
 				>
-					Explore service
 					<ArrowUpRight
-						className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+						className="
+				h-4 w-4
+				transition-transform duration-300
+				group-hover:translate-x-0.5
+				group-hover:-translate-y-0.5
+			"
+						aria-hidden="true"
 					/>
 				</span>
 			</div>
@@ -111,34 +103,161 @@ function ServiceTile({ service }: { service: Service }) {
 	);
 }
 
+/* -------------------------------------------------------------------------- */
+/* Services Overview                                                          */
+/* -------------------------------------------------------------------------- */
+
 export function ServicesOverviewBento() {
+	const [showAll, setShowAll] = useState(false);
+
+	const visibleServices = SERVICES.slice(0, 6);
+	const remainingServices = SERVICES.slice(6);
+
+	const hasMoreServices = remainingServices.length > 0;
+
+	const gridClasses = `
+		grid grid-cols-1 gap-4
+		sm:grid-cols-2 sm:gap-5
+		lg:grid-cols-3 lg:gap-3
+	`;
+
 	return (
-		<section id="all-services" className="relative scroll-mt-24 bg-[#F8FAFC]">
-			<div className="pointer-events-none absolute inset-0 bg-blueprint-grid mask-fade-b opacity-40" />
+		<section
+			id="services-list"
+			aria-labelledby="services-heading"
+			className="
+				relative scroll-mt-24
+				bg-[#F8FAFC]
+				py-20 sm:py-24 lg:py-20
+			"
+		>
+			
+			{/* Existing anchor compatibility */}
 
-			<div className="relative mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 md:py-28">
-				<div className="max-w-2xl">
-					<p className="font-mono text-[12px] font-semibold uppercase tracking-[0.24em] text-brand-700">
-						What we do
-					</p>
-					<h2 className="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-navy sm:text-4xl md:text-[2.75rem] md:leading-[1.08]">
-						Twelve disciplines,{' '}
-						<span className="text-brand">one senior team</span>.
-					</h2>
-					<p className="mt-5 max-w-xl text-base leading-relaxed text-slate-500 sm:text-lg">
-						Each service links to a dedicated page with capabilities, use cases, our
-						development approach and the technologies we use — so you know exactly what
-						working with Codelaro looks like.
-					</p>
-				</div>
+			<span
+				id="all-services"
+				aria-hidden="true"
+				className="absolute top-0 scroll-mt-24"
+			/>
 
-				<div className="mt-12 grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:auto-rows-[minmax(170px,auto)] lg:grid-cols-4 lg:auto-rows-[minmax(180px,auto)]">
-					{SERVICES.map((service) => (
-						<div key={service.slug} className={SPAN_CLASSES[service.span]}>
-							<ServiceTile service={service} />
-						</div>
+			<div className="mx-auto w-full max-w-8xl px-5 sm:px-8">
+
+				{/* Section Header */}
+
+			<div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+	{/* Eyebrow */}
+	<div className="mb-6 flex items-center justify-center gap-3">
+		<span className="h-px w-8 bg-brand" />
+
+		<p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-700">
+			What We Do
+		</p>
+
+		<span className="h-px w-8 bg-brand" />
+	</div>
+
+	{/* Heading */}
+	<h2
+		id="services-heading"
+		className="
+			font-display
+			text-[34px] font-semibold
+			leading-[1.14]
+			tracking-[-0.045em]
+			text-navy
+			sm:text-[42px]
+			lg:text-[48px]
+		"
+	>
+		Technology expertise
+		<br className="hidden sm:block" />{' '}
+		<span className="text-brand">
+			for every ambition.
+		</span>
+	</h2>
+</div>
+
+				{/* Initially visible services */}
+
+				<div className={`mt-12 sm:mt-14 ${gridClasses}`}>
+					{visibleServices.map((service) => (
+						<ServiceCard
+							key={service.slug}
+							service={service}
+						/>
 					))}
 				</div>
+
+				{/* Additional Services */}
+
+				{hasMoreServices && (
+					<>
+						<div
+							id="additional-services"
+							className={
+								showAll
+									? `mt-4 sm:mt-5 lg:mt-3 ${gridClasses}`
+									: 'hidden'
+							}
+						>
+							{remainingServices.map((service) => (
+								<ServiceCard
+									key={service.slug}
+									service={service}
+								/>
+							))}
+						</div>
+
+						{/* View More / Show Less */}
+
+						<div className="mt-10 flex justify-center sm:mt-12">
+							<button
+								type="button"
+								onClick={() => setShowAll((prev) => !prev)}
+								aria-expanded={showAll}
+								aria-controls="additional-services"
+								className="
+									group inline-flex
+									min-h-[48px]
+									items-center justify-center
+									gap-3
+									rounded-xl
+									border border-slate-200
+									bg-white
+									px-7 py-3
+									font-display
+									text-[14px] font-semibold
+									text-navy
+									transition-all duration-300
+									hover:border-brand/40
+									hover:bg-brand/[0.04]
+									hover:shadow-md
+									hover:shadow-navy/[0.04]
+									focus-visible:outline-2
+									focus-visible:outline-offset-4
+									focus-visible:outline-brand
+								"
+							>
+								<span>
+									{showAll
+										? 'Show Less'
+										: 'View More Services'}
+								</span>
+
+								<ChevronDown
+									aria-hidden="true"
+									className={`
+										h-4 w-4 text-brand
+										transition-transform duration-300
+										${showAll ? 'rotate-180' : ''}
+										${!showAll ? 'group-hover:translate-y-0.5' : ''}
+									`}
+									strokeWidth={2}
+								/>
+							</button>
+						</div>
+					</>
+				)}
 			</div>
 		</section>
 	);
