@@ -16,7 +16,6 @@ export function SolutionDetail({ solution }: { solution: Solution }) {
 			<SolutionApproach solution={solution} />
 			<SolutionCapabilities solution={solution} />
 			<SolutionJourney solution={solution} />
-			<SolutionRelated current={solution} />
 			<SolutionFaq solution={solution} />
 			<SolutionCta solution={solution} />
 		</main>

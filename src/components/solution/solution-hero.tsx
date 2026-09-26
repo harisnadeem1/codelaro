@@ -1,60 +1,70 @@
 import { Link } from 'react-router';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { Solution } from '@/data/solutions';
+import { SolutionVisual } from './solution-visuals';
 
+/**
+ * Accessible, SEO-friendly hero: real H1, crawlable solution copy and internal links.
+ * Every solution title automatically selects its own code-rendered illustration.
+ */
 export function SolutionHero({ solution }: { solution: Solution }) {
-	const Icon = solution.icon;
-	return (
-		<section className="relative overflow-hidden border-b border-slate-200/80 bg-white">
-			<div className="pointer-events-none absolute inset-0 bg-blueprint-grid mask-fade-b opacity-50" />
-			<div className="drift-slow pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full bg-brand/10 blur-3xl" />
+  return (
+    <section aria-labelledby="solution-heading" className="relative isolate overflow-hidden bg-white">
+      <div aria-hidden="true" className="pointer-events-none absolute -inset-x-20 -top-40 h-[600px] rounded-full bg-brand/[.025] blur-[120px]" />
 
-			<div className="relative mx-auto w-full max-w-5xl px-5 py-16 sm:px-8 md:py-24">
-				<Link
-					to="/solutions"
-					className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-slate-500 transition-colors hover:text-brand"
-				>
-					<ArrowLeft className="h-4 w-4" />
-					All solutions
-				</Link>
+      <div className="relative mx-auto w-full max-w-8xl px-5 pb-16 pt-8 sm:px-8 sm:pb-20 lg:pb-20 lg:pt-32">
+        <nav aria-label="Breadcrumb" className="mb-10 lg:mb-5">
+          <Link to="/solutions" className="group inline-flex items-center gap-2 text-[13px] font-medium text-slate-500 transition-colors hover:text-navy">
+            <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
+            All Solutions
+          </Link>
+        </nav>
 
-				<div className="mt-8 flex items-center gap-4">
-					<span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand/10 text-brand">
-						<Icon className="h-7 w-7" strokeWidth={1.8} />
-					</span>
-					<p className="font-mono text-[12px] font-semibold uppercase tracking-[0.24em] text-brand-700">
-						Solution
-					</p>
-				</div>
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,0.93fr)_minmax(0,1.07fr)] lg:gap-8 xl:gap-12">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-9 bg-brand" />
+              <span className="font-mono text-[11px] font-bold uppercase tracking-[.2em] text-brand-700">Digital solutions</span>
+            </div>
 
-				<h1 className="mt-6 max-w-3xl font-display text-4xl font-bold leading-[1.08] tracking-tight text-navy sm:text-5xl md:text-[3.25rem] md:leading-[1.05]">
-					{solution.title}
-				</h1>
+            <h1 id="solution-heading" className="mt-7 max-w-2xl font-display text-[clamp(2.5rem,4.2vw,4.5rem)] font-bold leading-[1.1] tracking-[-.045em] text-navy">
+              {solution.title}
+            </h1>
 
-				<p className="mt-5 max-w-2xl font-display text-xl font-semibold leading-snug text-brand-700 sm:text-2xl">
-					{solution.outcome}
-				</p>
+            <p className="mt-6 max-w-xl font-display text-xl font-semibold leading-[1.4] tracking-tight text-brand-700 sm:text-2xl">
+              {solution.outcome}
+            </p>
 
-				<p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-500">
-					{solution.explanation}
-				</p>
+            <p className="mt-6 max-w-xl text-[15px] leading-[1.85] text-slate-500 sm:text-base">
+              {solution.explanation}
+            </p>
 
-				<div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-					<Link
-						to="#contact"
-						className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand px-7 font-display text-[15px] font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-600 hover:shadow-brand/40 active:scale-[0.98] sm:w-auto"
-					>
-						Book a consultation
-						<ArrowRight className="h-4 w-4" />
-					</Link>
-					<Link
-						to="/#work"
-						className="flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-7 font-display text-[15px] font-semibold text-navy transition-all hover:border-navy/30 hover:bg-slate-50 active:scale-[0.98] sm:w-auto"
-					>
-						Explore our work
-					</Link>
-				</div>
-			</div>
-		</section>
-	);
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link to="/contact" className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-brand px-6 py-3 text-[16px] font-semibold text-white transition-all duration-300 hover:bg-brand-600 hover:shadow-lg hover:shadow-brand/20 active:scale-[.98]">
+                Discuss Your Project
+                <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+              <Link to="/industries" className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-6 py-3 text-[16px] font-semibold text-navy transition-all duration-300 hover:border-navy/20 hover:bg-slate-50 active:scale-[.98]">
+                Explore our Industries
+                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
+
+            <div className="mt-10 flex items-center gap-3 border-t border-slate-200 pt-6">
+              <div aria-hidden="true" className="flex items-center gap-1.5">
+                <span className="size-1.5 rounded-full bg-brand" />
+                <span className="size-1.5 rounded-full bg-brand/50" />
+                <span className="size-1.5 rounded-full bg-brand/20" />
+              </div>
+              <p className="text-xs font-medium tracking-wide text-slate-500">Thoughtfully designed. Built to scale.</p>
+            </div>
+          </div>
+
+          <div className="relative min-w-0 w-full lg:-mr-5 xl:-mr-8">
+            <SolutionVisual solution={solution} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
