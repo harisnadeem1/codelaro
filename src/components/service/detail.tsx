@@ -8,16 +8,18 @@ import { ServiceTechnologies } from '@/components/service/service-technologies';
 import { ServiceRelated } from '@/components/service/service-related';
 import { ServiceFaq } from '@/components/service/service-faq';
 import { ServiceCta } from '@/components/service/service-cta';
+import {ServiceDeliverables} from '@/components/service/service-deliverables';
 
 export function ServiceDetail({ service }: { service: Service }) {
 	return (
 		<main>
 			<ServiceHero service={service} />
-			<ServiceOverview service={service} />
+			{/* <ServiceOverview service={service} /> */}
+			<ServiceDeliverables service={service} />
 			<ServiceCapabilities service={service} />
 			<ServiceUseCases service={service} />
 			<ServiceApproach service={service} />
-			<ServiceTechnologies service={service} />
+			{/* <ServiceTechnologies service={service} /> */}
 			<ServiceRelated current={service} />
 			<ServiceFaq service={service} />
 			<ServiceCta service={service} />

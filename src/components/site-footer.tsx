@@ -300,7 +300,7 @@ export function SiteFooter() {
                 text-[2rem]
                 font-semibold
                 leading-[1.12]
-                tracking-[-0.04em]
+                tracking-tight
                 text-white
                 sm:text-[2.5rem]
                 lg:text-[3rem]

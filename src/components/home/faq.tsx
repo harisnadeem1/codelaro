@@ -18,27 +18,26 @@ export function Faq() {
 
 	return (
 		<section
-			id="faq"
-			aria-labelledby="faq-heading"
-			className="
-				relative
-				scroll-mt-24
-				overflow-hidden
-				bg-[#F8FAFC]
-			"
-		>
+  id="faq"
+  aria-labelledby="faq-heading"
+  className="
+    relative
+    scroll-mt-24
+    bg-[#F8FAFC]
+  "
+>
 			{/* =====================================================
 			    Background
 			===================================================== */}
 
-			<div
-				aria-hidden="true"
-				className="
-					pointer-events-none
-					absolute inset-0
-					overflow-hidden
-				"
-			>
+		<div
+  aria-hidden="true"
+  className="
+    pointer-events-none
+    absolute inset-0
+    overflow-hidden
+  "
+>
 				{/* Blueprint texture */}
 				<div
 					className="
@@ -92,19 +91,25 @@ export function Faq() {
 				"
 			>
 				<div
-					className="
-						grid gap-14
-						lg:grid-cols-12
-						lg:gap-16
-						xl:gap-20
-					"
-				>
+  className="
+    grid gap-14
+    lg:grid-cols-12
+    lg:items-stretch
+    lg:gap-16
+    xl:gap-20
+  "
+>
 					{/* =================================================
 					    Left / introduction
 					================================================= */}
 
-					<div className="lg:col-span-5">
-						<div className="lg:sticky lg:top-28">
+				<div className="relative lg:col-span-5 lg:self-stretch">
+  <div
+    className="
+      lg:sticky
+      lg:top-32
+    "
+  >
 							{/* Eyebrow */}
 
 							<div className="flex items-center gap-3">
@@ -289,13 +294,13 @@ export function Faq() {
 											type="button"
 											aria-expanded={isOpen}
 											aria-controls={panelId}
-											onClick={() =>
-												setOpen(
-													isOpen
-														? null
-														: index,
-												)
-											}
+											onMouseEnter={(event) => {
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    setOpen(index);
+  }
+}}
+onFocus={() => setOpen(index)}
+onClick={() => setOpen(isOpen ? null : index)}
 											className="
 												flex w-full
 												items-start
@@ -307,7 +312,7 @@ export function Faq() {
 												transition-[padding]
 												duration-300
 												sm:py-4
-												group-hover:pl-2
+												group-hover:pl-0
 											"
 										>
 											{/* Question text */}

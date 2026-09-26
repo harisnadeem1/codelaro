@@ -1,45 +1,148 @@
-import { Check } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import type { Service } from '@/data/services';
 
-export function ServiceCapabilities({ service }: { service: Service }) {
-	const Icon = service.icon;
-	return (
-		<section className="relative border-y border-slate-200/80 bg-white">
-			<div className="relative mx-auto w-full max-w-5xl px-5 py-20 sm:px-8 md:py-24">
-				<div className="grid gap-12 md:grid-cols-[1fr_1.4fr] md:gap-16">
-					<div>
-						<p className="font-mono text-[12px] font-semibold uppercase tracking-[0.24em] text-brand-700">
-							Capabilities
-						</p>
-						<h2 className="mt-4 font-display text-2xl font-bold leading-tight tracking-tight text-navy sm:text-3xl">
-							What this engagement covers
-						</h2>
-						<p className="mt-4 text-[15px] leading-relaxed text-slate-500">
-							Every engagement is scoped to your goals — these are the foundations we
-							typically deliver for {service.title.toLowerCase()}.
-						</p>
-						<span className="mt-8 hidden grid h-16 w-16 place-items-center rounded-2xl bg-navy text-brand md:grid">
-							<Icon className="h-8 w-8" strokeWidth={1.6} />
-						</span>
-					</div>
+export function ServiceCapabilities({
+  service,
+}: {
+  service: Service;
+}) {
+  const capabilities = service.capabilities ?? [];
 
-					<ul className="space-y-3">
-						{service.capabilities.map((capability) => (
-							<li
-								key={capability}
-								className="flex items-start gap-3 rounded-xl border border-slate-200/80 bg-[#F8FAFC] p-4 transition-colors hover:border-brand/40"
-							>
-								<span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand/10 text-brand">
-									<Check className="h-3.5 w-3.5" strokeWidth={2.5} />
-								</span>
-								<span className="text-[15px] leading-relaxed text-slate-700">
-									{capability}
-								</span>
-							</li>
-						))}
-					</ul>
-				</div>
-			</div>
-		</section>
-	);
+  if (!capabilities.length) return null;
+
+  return (
+    <section
+      id="service-capabilities"
+      aria-labelledby="service-capabilities-heading"
+      className="relative bg-[#F8FAFC] py-20 sm:py-24 lg:py-32"
+    >
+      <div className="mx-auto w-full max-w-8xl px-5 sm:px-8 lg:px-10">
+
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-20">
+
+          {/* Left: Introduction */}
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-32">
+
+              {/* Eyebrow */}
+              <div className="flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="h-px w-7 bg-brand"
+                />
+
+                <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-700">
+                  Our capabilities
+                </p>
+              </div>
+
+              {/* Heading */}
+            <h2
+  id="service-capabilities-heading"
+  className="
+    mt-6 max-w-md
+    font-display
+    text-[clamp(2rem,3.5vw,3.5rem)]
+    font-semibold
+    leading-[1.15]
+    tracking-[-0.045em]
+    text-navy
+  "
+>
+  Expertise that
+  <br className="hidden sm:block" />
+  {' '}
+  <span className="text-slate-400">
+    Brings Ideas to Life.
+  </span>
+</h2>
+
+              {/* Description */}
+              <p className="mt-6 max-w-md text-[15px] leading-[1.85] text-slate-600">
+                Explore the core capabilities behind our{' '}
+                {service.title.toLowerCase()} services,
+                tailored to your project's requirements
+                and long-term goals.
+              </p>
+
+              {/* Count */}
+              <p className="mt-9 font-mono text-[11px] uppercase tracking-[0.14em] text-slate-400">
+                {String(capabilities.length).padStart(2, '0')}
+                {' '}core capabilities
+              </p>
+
+            </div>
+          </div>
+
+          {/* Right: Capabilities */}
+          <div className="lg:col-span-7">
+
+            <ul className="border-t border-slate-200">
+              {capabilities.map((capability, index) => (
+            <li
+  key={`${service.slug}-capability-${index}`}
+  className="
+    group flex items-center
+    gap-5
+    border-b border-slate-200
+    py-6
+    transition-colors duration-200
+    sm:gap-8 sm:py-8
+  "
+>
+
+                  {/* Number */}
+                  <span
+                    aria-hidden="true"
+                    className="
+                      mt-1 shrink-0
+                      font-mono text-[11px]
+                      text-slate-400
+                    "
+                  >
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+
+                  {/* Capability */}
+                  <h3
+                    className="
+                      min-w-0 flex-1
+                      font-display
+                      text-[17px]
+                      font-medium
+                      leading-[1.45]
+                      tracking-[-0.025em]
+                      text-navy
+                      sm:text-[21px]
+                    "
+                  >
+                    {capability}
+                  </h3>
+
+                  {/* Decorative Arrow */}
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="
+                      mt-1 h-4 w-4 shrink-0
+                      text-slate-300
+                      transition-[color,transform]
+                      duration-200
+                      group-hover:-translate-y-0.5
+                      group-hover:translate-x-0.5
+                      group-hover:text-brand-700
+                      motion-reduce:transition-none
+                    "
+                    strokeWidth={1.5}
+                  />
+
+                </li>
+              ))}
+            </ul>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
 }
