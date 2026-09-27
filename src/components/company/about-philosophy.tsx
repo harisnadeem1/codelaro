@@ -1,74 +1,506 @@
+import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
+
 import { ABOUT } from '@/data/company';
 
-/**
- * Code. Launch. Grow. philosophy — dark editorial surface with the three
- * movements that define every Codelaro engagement.
- */
+/* -------------------------------------------------------------------------- */
+/* Configuration                                                              */
+/* -------------------------------------------------------------------------- */
+
+const STAGES = [
+	{
+		number: '01',
+		label: 'Engineering',
+		heading: 'Build with intention.',
+	},
+	{
+		number: '02',
+		label: 'Delivery',
+		heading: 'Bring ideas to life.',
+	},
+	{
+		number: '03',
+		label: 'Evolution',
+		heading: 'Create lasting value.',
+	},
+];
+
+/* -------------------------------------------------------------------------- */
+/* Philosophy Row                                                             */
+/* -------------------------------------------------------------------------- */
+
+function PhilosophyRow({
+	item,
+	index,
+}: {
+	item: (typeof ABOUT.philosophy)[number];
+	index: number;
+}) {
+	const stage = STAGES[index];
+
+	if (!stage) return null;
+
+	return (
+		<article
+			className="
+				group relative
+				border-t border-white/[0.12]
+				py-8
+				sm:py-10
+				lg:py-12
+			"
+		>
+			{/* Hover background */}
+
+			<div
+				aria-hidden="true"
+				className="
+					pointer-events-none
+					absolute -inset-x-4 inset-y-0
+					bg-white/0
+					transition-colors duration-500
+					group-hover:bg-white/[0.025]
+					sm:-inset-x-6
+					lg:-inset-x-8
+				"
+			/>
+
+			{/* Teal hover indicator */}
+
+			<div
+				aria-hidden="true"
+				className="
+					absolute -left-4 top-0
+					h-px w-0
+					bg-brand
+					transition-all duration-500
+					group-hover:w-20
+					sm:-left-6
+					lg:-left-8
+				"
+			/>
+
+			<div
+				className="
+					relative
+					grid items-start
+					gap-5
+					md:grid-cols-12
+					md:gap-6
+					lg:items-center
+					lg:gap-8
+				"
+			>
+				{/* Number */}
+
+				<div className="md:col-span-1">
+					<span
+						className="
+							font-mono
+							text-[13px]
+							font-medium
+							text-brand
+						"
+					>
+						{stage.number}
+					</span>
+				</div>
+
+				{/* Stage title */}
+
+				<div className="md:col-span-4">
+					<div>
+						<p
+							className="
+								mb-3
+								font-mono
+								text-[10px]
+								font-semibold
+								uppercase
+								tracking-[0.2em]
+								text-white/40
+							"
+						>
+							{stage.label}
+						</p>
+
+						<h3
+							className="
+								font-display
+								text-[clamp(2.7rem,4.2vw,4.8rem)]
+								font-semibold
+								leading-none
+								tracking-[-0.055em]
+								text-white
+								transition-colors duration-300
+								group-hover:text-brand
+							"
+						>
+							{item.word}
+							<span className="text-brand">.</span>
+						</h3>
+					</div>
+				</div>
+
+				{/* Stage description */}
+
+				<div className="md:col-span-6">
+					<h4
+						className="
+							font-display
+							text-[17px]
+							font-semibold
+							leading-snug
+							tracking-[-0.02em]
+							text-white
+							sm:text-[19px]
+						"
+					>
+						{stage.heading}
+					</h4>
+
+					<p
+						className="
+							mt-3
+							max-w-[540px]
+							text-[14px]
+							leading-[1.85]
+							text-slate-400
+							sm:text-[15px]
+						"
+					>
+						{item.description}
+					</p>
+				</div>
+
+				{/* Direction indicator */}
+
+				<div
+					aria-hidden="true"
+					className="
+						hidden
+						justify-end
+						md:col-span-1
+						md:flex
+					"
+				>
+					<div
+						className="
+							flex h-11 w-11
+							items-center justify-center
+							rounded-full
+							border border-white/15
+							text-white/40
+							transition-all duration-300
+							group-hover:-translate-y-0.5
+							group-hover:translate-x-0.5
+							group-hover:border-brand/40
+							group-hover:bg-brand/10
+							group-hover:text-brand
+						"
+					>
+						<ArrowUpRight
+							className="h-[19px] w-[19px]"
+							strokeWidth={1.5}
+						/>
+					</div>
+				</div>
+			</div>
+		</article>
+	);
+}
+
+/* -------------------------------------------------------------------------- */
+/* About Philosophy                                                           */
+/* -------------------------------------------------------------------------- */
+
 export function AboutPhilosophy() {
 	return (
-		<section className="relative overflow-hidden bg-navy-900">
-			<span
-				aria-hidden
-				className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark opacity-60"
-			/>
-			<span
-				aria-hidden
-				className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 rounded-full bg-brand/10 blur-3xl drift-slow"
-			/>
-			<span
-				aria-hidden
-				className="pointer-events-none absolute -right-32 bottom-1/4 h-80 w-80 rounded-full bg-brand/8 blur-3xl drift-slow"
-			/>
+		<section
+			id="philosophy"
+			aria-labelledby="philosophy-heading"
+			className="
+				relative isolate
+				overflow-hidden
+				bg-navy
+				py-20
+				sm:py-20
+				lg:py-20
+			"
+		>
+			{/* Background decorations */}
 
-			<div className="relative mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 md:py-28">
-				<div className="mx-auto max-w-2xl text-center">
-					<p className="font-mono text-[12px] font-semibold uppercase tracking-[0.24em] text-brand">
-						Our philosophy
-					</p>
-					<h2 className="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-[2.75rem] md:leading-[1.08]">
-						Code. Launch. <span className="text-brand">Grow.</span>
-					</h2>
-					<p className="mt-5 text-base leading-relaxed text-slate-400 sm:text-lg">
-						Three movements that shape every engagement — from the first line of code to
-						long after go-live.
-					</p>
-				</div>
+			<div
+				aria-hidden="true"
+				className="
+					pointer-events-none
+					absolute inset-0
+					overflow-hidden
+				"
+			>
+				{/* Subtle grid */}
 
-				<div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-5">
-					{ABOUT.philosophy.map((item, i) => (
-						<div
-							key={item.word}
-							className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-7"
+				<div
+					className="
+						absolute inset-0
+						opacity-[0.035]
+					"
+					style={{
+						backgroundImage: `
+							linear-gradient(
+								to right,
+								#FFFFFF 1px,
+								transparent 1px
+							),
+							linear-gradient(
+								to bottom,
+								#FFFFFF 1px,
+								transparent 1px
+							)
+						`,
+						backgroundSize: '64px 64px',
+					}}
+				/>
+
+				{/* Ambient teal light */}
+
+				<div
+					className="
+						absolute -right-48 -top-48
+						h-[600px] w-[600px]
+						rounded-full
+						bg-brand/[0.055]
+						blur-[130px]
+					"
+				/>
+
+				{/* Bottom gradient */}
+
+				<div
+					className="
+						absolute -bottom-64 -left-48
+						h-[500px] w-[500px]
+						rounded-full
+						bg-brand/[0.035]
+						blur-[120px]
+					"
+				/>
+			</div>
+
+			{/* Main container */}
+
+			<div
+				className="
+					relative mx-auto
+					w-full max-w-8xl
+					px-5 sm:px-8
+				"
+			>
+				{/* -------------------------------------------------- */}
+				{/* Editorial header                                    */}
+				{/* -------------------------------------------------- */}
+
+				<div
+					className="
+						grid items-end
+						gap-7
+						pb-14
+						lg:grid-cols-12
+						lg:gap-12
+						lg:pb-16
+					"
+				>
+					{/* Heading */}
+
+					<div className="lg:col-span-7">
+						{/* Eyebrow */}
+
+						<div className="mb-6 flex items-center gap-3">
+							<span
+								className="
+									h-[7px] w-[7px]
+									rounded-full
+									bg-brand
+									shadow-[0_0_15px_rgba(24,188,183,0.35)]
+								"
+							/>
+
+							<span
+								className="
+									font-mono
+									text-[11px]
+									font-semibold
+									uppercase
+									tracking-[0.23em]
+									text-brand
+								"
+							>
+								Our Philosophy
+							</span>
+
+							<span className="h-px w-9 bg-brand/40" />
+						</div>
+
+						{/* Main heading */}
+
+						<h2
+							id="philosophy-heading"
+							className="
+								max-w-[790px]
+								font-display
+								text-[clamp(2.5rem,4.2vw,4.5rem)]
+								font-semibold
+								leading-[1.1]
+								tracking-[-0.05em]
+								text-white
+							"
 						>
-							<span className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-brand/70">
-								0{i + 1}
+							The thinking behind
+							<br />
+
+							<span className="text-brand">
+								everything we build.
 							</span>
-							<h3 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-white">
-								{item.word}
-								<span className="text-brand">.</span>
-							</h3>
-							<p className="mt-4 text-[14px] leading-relaxed text-slate-400">
-								{item.description}
-							</p>
+						</h2>
+					</div>
+
+					{/* Introduction */}
+
+					<div className="lg:col-span-5">
+						<p
+							className="
+								max-w-[470px]
+								text-[14px]
+								leading-[1.9]
+								text-slate-400
+								sm:text-[16px]
+								lg:ml-auto
+							"
+						>
+							At Codelaro, software development is more
+							than writing code. Our philosophy connects
+							thoughtful engineering, reliable product
+							delivery, and continuous improvement to
+							create digital solutions designed for
+							long-term success.
+						</p>
+
+						<div
+							className="
+								mt-5
+								flex items-center gap-2.5
+								lg:justify-end
+							"
+						>
+							<span
+								className="
+									font-mono
+									text-[10px]
+									font-semibold
+									uppercase
+									tracking-[0.17em]
+									text-brand
+								"
+							>
+								Explore our approach
+							</span>
+
+							<ArrowDownRight
+								aria-hidden="true"
+								className="h-4 w-4 text-brand"
+							/>
 						</div>
-					))}
+					</div>
 				</div>
 
-				<div className="mt-14 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-white/10 pt-10 sm:gap-x-10">
-					{ABOUT.philosophy.map((item, i) => (
-						<div key={item.word} className="flex items-center gap-6 sm:gap-10">
-							<span className="font-display text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-								{item.word}
-								<span className="text-brand">.</span>
+				{/* -------------------------------------------------- */}
+				{/* Philosophy stages                                  */}
+				{/* -------------------------------------------------- */}
+
+				<div>
+					{ABOUT.philosophy.slice(0, 3).map(
+						(item, index) => (
+							<PhilosophyRow
+								key={item.word}
+								item={item}
+								index={index}
+							/>
+						),
+					)}
+
+					{/* Bottom border */}
+
+					<div className="h-px w-full bg-white/[0.12]" />
+				</div>
+
+				{/* -------------------------------------------------- */}
+				{/* Closing statement                                  */}
+				{/* -------------------------------------------------- */}
+
+				<div
+					className="
+						mt-12
+						flex flex-col
+						justify-between
+						gap-6
+						sm:flex-row
+						sm:items-center
+						lg:mt-16
+					"
+				>
+					{/* Brand signature */}
+
+					<div>
+						<p
+							className="
+								font-display
+								text-[clamp(1.4rem,2.2vw,2rem)]
+								font-semibold
+								leading-snug
+								tracking-[-0.03em]
+								text-white
+							"
+						>
+							One philosophy.
+							<span className="text-brand">
+								{' '}Endless possibilities.
 							</span>
-							{i < ABOUT.philosophy.length - 1 && (
-								<span
-									aria-hidden
-									className="hidden h-1.5 w-1.5 rounded-full bg-brand/60 sm:block"
-								/>
-							)}
-						</div>
-					))}
+						</p>
+
+						<p
+							className="
+								mt-2
+								text-[13px]
+								text-slate-400
+							"
+						>
+							A consistent approach to building
+							technology that evolves with your business.
+						</p>
+					</div>
+
+					{/* Signature */}
+
+					<div
+						className="
+							flex shrink-0
+							items-center gap-3
+						"
+					>
+						<span
+							className="
+								font-mono
+								text-[11px]
+								font-semibold
+								uppercase
+								tracking-[0.18em]
+								text-brand
+							"
+						>
+							Code. Launch. Grow.
+						</span>
+
+						<span className="h-px w-8 bg-brand/50" />
+					</div>
 				</div>
 			</div>
 		</section>

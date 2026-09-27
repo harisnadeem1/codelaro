@@ -1,73 +1,236 @@
+import type { ReactNode } from 'react';
 import { Link } from 'react-router';
-import { ArrowRight, CalendarClock } from 'lucide-react';
+import { ArrowUpRight, CalendarClock } from 'lucide-react';
 
 type CtaSectionProps = {
 	eyebrow?: string;
-	title?: React.ReactNode;
+	title?: ReactNode;
 	subtitle?: string;
 };
 
-/**
- * Reusable dark contact CTA. Carries the `#contact` anchor so the header
- * "Start a Project" / "Contact" links resolve on every page that renders it.
- */
 export function CtaSection({
-	eyebrow = 'Let’s build',
+	eyebrow = "Let's Work Together",
+
 	title = (
 		<>
-			Have an idea? <span className="text-brand">Let’s build what’s next.</span>
+			Have an idea?
+			<br />
+			<span className="text-brand">
+				Let's make it happen.
+			</span>
 		</>
 	),
-	subtitle = 'Tell us about your goals — we will map the fastest route from idea to launch to growth. No obligation, just a clear conversation with a senior team.',
+
+	subtitle =
+		'From custom software development to AI-powered solutions, we help turn ambitious ideas into digital products built for lasting growth.',
 }: CtaSectionProps) {
 	return (
-		<section id="contact" className="relative scroll-mt-24 overflow-hidden bg-navy">
-			<span
-				aria-hidden
-				className="pointer-events-none absolute inset-0 bg-blueprint-grid-dark opacity-40"
-			/>
-			<span
-				aria-hidden
-				className="drift-slow pointer-events-none absolute -right-24 -top-24 h-[460px] w-[460px] rounded-full bg-brand/15 blur-3xl"
-			/>
-			<span
-				aria-hidden
-				className="drift-slow pointer-events-none absolute -left-32 bottom-0 h-72 w-72 rounded-full bg-brand/8 blur-3xl"
-			/>
+		<section
+			id="contact"
+			aria-labelledby="cta-heading"
+			className="
+				relative scroll-mt-24
+				bg-[#F8FAFC]
+				py-16 sm:py-20 lg:py-20
+			"
+		>
+			{/* Outer container */}
+			<div className="mx-auto w-full max-w-8xl px-5 sm:px-8">
 
-			<div className="relative mx-auto w-full max-w-4xl px-5 py-24 text-center sm:px-8 md:py-32">
-				<p className="font-mono text-[12px] font-semibold uppercase tracking-[0.24em] text-brand">
-					{eyebrow}
-				</p>
-
-				<h2 className="mx-auto mt-5 max-w-2xl font-display text-3xl font-bold leading-[1.08] tracking-tight text-white sm:text-4xl md:text-[3.25rem] md:leading-[1.05]">
-					{title}
-				</h2>
-
-				<p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg">
-					{subtitle}
-				</p>
-
-				<div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-					<Link
-						to="/start-a-project"
-						className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand px-7 font-display text-[15px] font-semibold text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-600 hover:shadow-brand/40 active:scale-[0.98] sm:w-auto"
+				{/* CTA panel */}
+				<div
+					className="
+						relative isolate
+						overflow-hidden
+						rounded-[24px]
+						bg-navy
+						px-6 py-16
+						sm:rounded-[32px]
+						sm:px-10 sm:py-20
+						lg:rounded-[40px]
+						lg:px-16 lg:py-16
+					"
+				>
+					{/* Background decoration */}
+					<div
+						aria-hidden="true"
+						className="pointer-events-none absolute inset-0"
 					>
-						Start a Project
-						<ArrowRight className="h-4 w-4" />
-					</Link>
-					<Link
-						to="/book-a-consultation"
-						className="flex h-12 w-full items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/[0.04] px-7 font-display text-[15px] font-semibold text-white transition-all hover:border-brand hover:bg-brand/10 hover:text-brand active:scale-[0.98] sm:w-auto"
+						{/* Subtle grid */}
+						<div className="absolute inset-0 bg-blueprint-grid-dark opacity-20" />
+
+						{/* Soft teal glow */}
+						<div
+							className="
+								absolute -right-32 -top-40
+								h-[450px] w-[450px]
+								rounded-full
+								bg-brand/10
+								blur-[110px]
+							"
+						/>
+
+						{/* Bottom accent */}
+						<div
+							className="
+								absolute bottom-0
+								left-[25%] right-[25%]
+								h-px
+								bg-gradient-to-r
+								from-transparent
+								via-brand/50
+								to-transparent
+							"
+						/>
+					</div>
+
+					{/* Content */}
+					<div
+						className="
+							relative z-10
+							mx-auto max-w-3xl
+							text-center
+						"
 					>
-						<CalendarClock className="h-4 w-4 text-brand" />
-						Book a Consultation
-					</Link>
+						{/* Eyebrow */}
+						<div className="mb-6 flex items-center justify-center gap-3">
+							<span className="h-px w-7 bg-brand/50" />
+
+							<p
+								className="
+									font-mono text-[11px]
+									font-semibold uppercase
+									tracking-[0.22em]
+									text-brand
+								"
+							>
+								{eyebrow}
+							</p>
+
+							<span className="h-px w-7 bg-brand/50" />
+						</div>
+
+						{/* Heading */}
+						<h2
+							id="cta-heading"
+							className="
+								font-display
+								text-[clamp(2.2rem,4vw,4.2rem)]
+								font-semibold
+								leading-[1.12]
+								tracking-[-0.045em]
+								text-white
+							"
+						>
+							{title}
+						</h2>
+
+						{/* Description */}
+						<p
+							className="
+								mx-auto mt-6
+								max-w-xl
+								text-[14px]
+								leading-[1.85]
+								text-slate-300
+								sm:text-[16px]
+							"
+						>
+							{subtitle}
+						</p>
+
+						{/* Buttons */}
+						<div
+							className="
+								mt-9
+								flex flex-col
+								items-center justify-center
+								gap-3
+								sm:flex-row
+							"
+						>
+							{/* Primary CTA */}
+							<Link
+								to="/contact"
+								className="
+									group
+									inline-flex h-[52px]
+									w-full items-center
+									justify-center gap-3
+									rounded-xl
+									bg-brand
+									px-7
+									font-display
+									text-[16px] font-semibold
+									text-white
+									transition-all duration-300
+									hover:-translate-y-0.5
+									hover:bg-brand-600
+									focus-visible:outline
+									focus-visible:outline-2
+									focus-visible:outline-offset-4
+									focus-visible:outline-brand
+									sm:w-auto
+								"
+							>
+								Start a Project
+
+								<ArrowUpRight
+									className="
+										h-[17px] w-[17px]
+										transition-transform duration-300
+										group-hover:-translate-y-0.5
+										group-hover:translate-x-0.5
+									"
+								/>
+							</Link>
+
+							{/* Secondary CTA */}
+							<Link
+								to="/services"
+								className="
+									group
+									inline-flex h-[52px]
+									w-full items-center
+									justify-center gap-2.5
+									rounded-xl
+									border border-white/20
+									bg-white/[0.055]
+									px-7
+									font-display
+									text-[16px] font-semibold
+									text-white
+									transition-all duration-300
+									hover:border-brand/40
+									hover:bg-white/10
+									focus-visible:outline
+									focus-visible:outline-2
+									focus-visible:outline-offset-4
+									focus-visible:outline-brand
+									sm:w-auto
+								"
+							>
+								
+
+								Explore Services
+							</Link>
+						</div>
+
+						{/* Subtle footer */}
+						<p
+							className="
+								mt-9
+								font-mono
+								text-[10px]
+								font-medium uppercase
+								tracking-[0.18em]
+								text-white/35
+							"
+						>
+							Code. Launch. Grow.
+						</p>
+					</div>
 				</div>
-
-				<p className="mt-8 text-[13px] text-slate-500">
-					Code. Launch. Grow. — we reply within one business day.
-				</p>
 			</div>
 		</section>
 	);

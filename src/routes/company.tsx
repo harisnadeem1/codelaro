@@ -1,34 +1,55 @@
 import type { Route } from './+types/company';
 import { seo } from '@/lib/seo';
-import { CompanyNav } from '@/components/company/company-nav';
 import { AboutHero } from '@/components/company/about-hero';
 import { AboutMission } from '@/components/company/about-mission';
 import { AboutPhilosophy } from '@/components/company/about-philosophy';
+import { AboutStory } from '@/components/company/about-story';
 import { CtaSection } from '@/components/cta-section';
 
 export function meta({ matches, location }: Route.MetaArgs) {
-	return seo({ matches, location }, {
-		title: 'About Codelaro — Code. Launch. Grow.',
-		description:
-			'Codelaro is an international software development and technology company. Our purpose, mission, vision and the Code. Launch. Grow. philosophy behind every engagement.',
-		path: '/company',
-		jsonLd: {
-			'@context': 'https://schema.org',
-			'@type': 'AboutPage',
-			name: 'About Codelaro',
+	return seo(
+		{ matches, location },
+		{
+			title: 'About Codelaro | Software Development & AI Solutions',
+
 			description:
-				'Purpose, mission, vision and the Code. Launch. Grow. philosophy of Codelaro.',
+				'Learn about Codelaro, a software development company building custom software, web applications and AI-powered solutions. Discover our mission, vision and approach.',
+
+			path: '/company',
+
+			jsonLd: {
+				'@context': 'https://schema.org',
+				'@type': 'AboutPage',
+
+				name: 'About Codelaro | Software Development Company',
+
+				url: 'https://codelaro.com/company',
+
+				description:
+					'Discover Codelaro, a software development company delivering custom software, web development and AI-powered solutions. Explore our mission, vision and development philosophy.',
+
+				about: {
+					'@type': 'Organization',
+					name: 'Codelaro',
+					url: 'https://codelaro.com',
+					description:
+						'Codelaro develops custom software, modern web applications and AI-powered solutions for businesses.',
+					slogan: 'Code. Launch. Grow.',
+				},
+
+				inLanguage: 'en',
+			},
 		},
-	});
+	);
 }
 
 export default function CompanyPage() {
 	return (
 		<main>
 			<AboutHero />
-			<CompanyNav />
 			<AboutMission />
 			<AboutPhilosophy />
+			<AboutStory />
 			<CtaSection />
 		</main>
 	);
