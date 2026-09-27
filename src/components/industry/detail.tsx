@@ -14,8 +14,6 @@ export function IndustryDetail({ industry }: { industry: Industry }) {
 			<IndustryChallenges industry={industry} />
 			<IndustryServices industry={industry} />
 			<IndustryTechnology industry={industry} />
-			<IndustryWork industry={industry} />
-			<IndustryRelated current={industry} />
 			<IndustryCta industry={industry} />
 		</main>
 	);
