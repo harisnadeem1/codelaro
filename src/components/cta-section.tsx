@@ -6,6 +6,13 @@ type CtaSectionProps = {
 	eyebrow?: string;
 	title?: ReactNode;
 	subtitle?: string;
+	background?: 'white' | 'off-white' | 'transparent';
+};
+
+const BACKGROUND_STYLES = {
+	white: 'bg-white',
+	'off-white': 'bg-[#F8FAFC]',
+	transparent: 'bg-transparent',
 };
 
 export function CtaSection({
@@ -23,17 +30,19 @@ export function CtaSection({
 
 	subtitle =
 		'From custom software development to AI-powered solutions, we help turn ambitious ideas into digital products built for lasting growth.',
+
+	background = 'off-white',
 }: CtaSectionProps) {
 	return (
 		<section
-			id="contact"
-			aria-labelledby="cta-heading"
-			className="
-				relative scroll-mt-24
-				bg-[#F8FAFC]
-				py-16 sm:py-20 lg:py-20
-			"
-		>
+	id="contact"
+	aria-labelledby="cta-heading"
+	className={`
+		relative scroll-mt-24
+		py-16 sm:py-20 lg:py-20 lg:pt-0
+		${BACKGROUND_STYLES[background]}
+	`}
+>
 			{/* Outer container */}
 			<div className="mx-auto w-full max-w-8xl px-5 sm:px-8">
 

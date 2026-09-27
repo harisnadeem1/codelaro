@@ -50,7 +50,7 @@ export default function CompanyPage() {
 			<AboutMission />
 			<AboutPhilosophy />
 			<AboutStory />
-			<CtaSection />
+			<CtaSection background="off-white" />
 		</main>
 	);
 }

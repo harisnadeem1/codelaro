@@ -16,31 +16,33 @@ export type CareerListing = {
  * philosophy. No invented founding story, team size or statistics.
  */
 export const ABOUT = {
-	purpose:
-		'We exist to help ambitious teams turn ideas into digital products that move their business forward — engineered with care, delivered with discipline and built to last.',
-	mission:
-		'To be the technology partner that businesses trust to design, build and scale the software that matters most to their growth.',
-	vision:
-		'A world where every ambitious team has access to senior engineering and product thinking — regardless of where they are or what they are building.',
-	philosophy: [
-		{
-			word: 'Code',
-			description:
-				'We start with disciplined engineering. Clean architecture, sensible abstractions and tested code on foundations that hold up under real load and future change. Quality is built in, not bolted on.',
-		},
-		{
-			word: 'Launch',
-			description:
-				'We ship with confidence. Automated pipelines, monitoring and a rollout plan that de-risks release — so the product reaches real users safely and the team learns from real usage, not assumptions.',
-		},
-		{
-			word: 'Grow',
-			description:
-				'We stay after go-live. We measure, iterate and scale the product with the business — evolving features, performance and architecture as the market and the team grow.',
-		},
-	],
-};
+    purpose:
+        'We exist to turn ambitious ideas into meaningful digital solutions. By combining thoughtful design, modern software engineering and a deep understanding of business needs, we help companies solve complex challenges and create lasting value.',
 
+    mission:
+        'Our mission is to empower businesses through custom software development, innovative technology and transparent collaboration. We focus on delivering reliable, scalable digital products that solve real problems and support long-term business growth.',
+
+    vision:
+        'To become a trusted global technology partner, helping businesses of all sizes transform ambitious ideas into impactful digital products through innovation, engineering excellence and lasting partnerships.',
+
+    philosophy: [
+        {
+            word: 'Code',
+            description:
+                'Great software begins with understanding the problem. We combine strategic thinking, thoughtful design and modern engineering to develop secure, scalable and maintainable digital products. Every technical decision is guided by your business goals and the needs of your users.',
+        },
+        {
+            word: 'Launch',
+            description:
+                'Building great software is only the beginning. We bring digital products to life through structured development, thorough testing and carefully planned deployment. Our focus is on delivering reliable solutions that are ready for real users and real business challenges.',
+        },
+        {
+            word: 'Grow',
+            description:
+                'Technology should evolve alongside your ambitions. We help businesses improve performance, introduce new capabilities and scale their digital products as their needs change. Through continuous improvement and long-term collaboration, we build technology designed for what comes next.',
+        },
+    ],
+};
 /**
  * Why Codelaro — the six reasons that define how we work. Reused from the
  * homepage REASONS data; this file holds the page-level framing only.
