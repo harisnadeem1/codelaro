@@ -6,3 +6,5 @@ dist/
 .env.*
 !.env.example
 *.log
+.wrangler/
+.dev.vars*npm run dev

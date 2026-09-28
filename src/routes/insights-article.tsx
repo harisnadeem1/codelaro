@@ -38,52 +38,67 @@ export function loader({ params }: Route.LoaderArgs) {
   return { article };
 }
 
-export function meta({ matches, location, data }: Route.MetaArgs) {
-  const article = data?.article;
-  if (!article) {
-    return [
-      { title: 'Article Not Found | Codelaro' },
-      { name: 'robots', content: 'noindex, follow' },
-    ];
-  }
+export function meta({ matches, location, params }: Route.MetaArgs) {
+	const article = getInsightArticleBySlug(params.slug ?? '');
 
-  const path = `/insights/${article.slug}`;
-  const canonical = `${SITE_URL}${path}`;
-  const metadata = seo(
-    { matches, location },
-    {
-      title: article.seoTitle,
-      description: article.seoDescription,
-      path,
-      // Draft pages receive no published-article schema.
-      ...(!article.placeholder && {
-        jsonLd: {
-          '@context': 'https://schema.org',
-          '@type': 'BlogPosting',
-          headline: article.title,
-          description: article.seoDescription,
-          mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
-          url: canonical,
-          datePublished: article.publishedAt,
-          author: { '@type': 'Organization', name: article.author },
-          publisher: { '@type': 'Organization', name: 'Codelaro', url: SITE_URL },
-          inLanguage: 'en',
-          keywords: article.keywords.join(', '),
-        },
-      }),
-    },
-  );
+	if (!article) {
+		return [
+			{ title: 'Article Not Found | Codelaro' },
+			{ name: 'robots', content: 'noindex, follow' },
+		];
+	}
 
-  // Avoid conflicting index/noindex directives on editorial drafts.
-  if (article.placeholder) {
-    return [
-      ...metadata.filter(
-        (entry) => !('name' in entry && entry.name === 'robots'),
-      ),
-      { name: 'robots', content: 'noindex, follow' },
-    ];
-  }
-  return metadata;
+	const path = `/insights/${article.slug}`;
+	const canonical = `${SITE_URL}${path}`;
+
+	const metadata = seo(
+		{ matches, location },
+		{
+			title: article.seoTitle,
+			description: article.seoDescription,
+			path,
+			...(!article.placeholder && {
+				jsonLd: {
+					'@context': 'https://schema.org',
+					'@type': 'BlogPosting',
+					headline: article.title,
+					description: article.seoDescription,
+					mainEntityOfPage: {
+						'@type': 'WebPage',
+						'@id': canonical,
+					},
+					url: canonical,
+					datePublished: article.publishedAt,
+					author: {
+						'@type': 'Organization',
+						name: article.author,
+					},
+					publisher: {
+						'@type': 'Organization',
+						name: 'Codelaro',
+						url: SITE_URL,
+					},
+					inLanguage: 'en',
+					keywords: article.keywords.join(', '),
+				},
+			}),
+		},
+	);
+
+	if (article.placeholder) {
+		return [
+			...metadata.filter(
+				(entry) =>
+					!('name' in entry && entry.name === 'robots'),
+			),
+			{
+				name: 'robots',
+				content: 'noindex, follow',
+			},
+		];
+	}
+
+	return metadata;
 }
 
 function HeadingLabel({ children }: { children: ReactNode }) {

@@ -125,15 +125,22 @@ export const withApi = (handler: ApiHandler): ((args: ApiArgs) => Promise<Respon
  * they arrive and aborting mid-stream is what actually caps memory, so both
  * readers below go through here.
  */
-const readBodyWithinLimit = async (request: Request): Promise<Buffer> => {
-	const declaredLength = Number(request.headers.get('content-length'));
+const readBodyWithinLimit = async (
+	request: Request,
+): Promise<Uint8Array<ArrayBuffer>> => {
+	const declaredLength = Number(
+		request.headers.get('content-length'),
+	);
 
-	if (Number.isFinite(declaredLength) && declaredLength > BODY_LIMIT_BYTES) {
+	if (
+		Number.isFinite(declaredLength) &&
+		declaredLength > BODY_LIMIT_BYTES
+	) {
 		throw apiError(413, 'Request body too large');
 	}
 
 	if (!request.body) {
-		return Buffer.alloc(0);
+		return new Uint8Array(0);
 	}
 
 	const reader = request.body.getReader();
@@ -144,19 +151,13 @@ const readBodyWithinLimit = async (request: Request): Promise<Buffer> => {
 		for (;;) {
 			const { done, value } = await reader.read();
 
-			if (done) {
-				break;
-			}
-
-			if (!value) {
-				continue;
-			}
+			if (done) break;
+			if (!value) continue;
 
 			receivedBytes += value.byteLength;
 
 			if (receivedBytes > BODY_LIMIT_BYTES) {
 				await reader.cancel();
-
 				throw apiError(413, 'Request body too large');
 			}
 
@@ -166,29 +167,43 @@ const readBodyWithinLimit = async (request: Request): Promise<Buffer> => {
 		reader.releaseLock();
 	}
 
-	return Buffer.concat(chunks);
+	const body = new Uint8Array(receivedBytes);
+	let offset = 0;
+
+	for (const chunk of chunks) {
+		body.set(chunk, offset);
+		offset += chunk.byteLength;
+	}
+
+	return body;
 };
 
 /** `request.json()` with a 20MB cap — nothing else limits how much a client can send. */
-export const readJsonBody = async <T>(request: Request): Promise<T> => {
-	const body = (await readBodyWithinLimit(request)).toString('utf8');
+export const readJsonBody = async <T>(
+	request: Request,
+): Promise<T> => {
+	const body = await readBodyWithinLimit(request);
+	const text = new TextDecoder().decode(body);
 
 	try {
-		return JSON.parse(body) as T;
+		return JSON.parse(text) as T;
 	} catch {
 		throw apiError(400, 'Invalid JSON body');
 	}
 };
 
 /** `request.formData()` with the same 20MB limit. */
-export const readFormData = async (request: Request): Promise<FormData> => {
+export const readFormData = async (
+	request: Request,
+): Promise<FormData> => {
 	const body = await readBodyWithinLimit(request);
 	const contentType = request.headers.get('content-type');
 
-	// Re-parse from the size-checked buffer; the content type carries the
-	// multipart boundary, so formData() cannot decode without it. Response takes a
-	// web BodyInit, which a Node Buffer is not, hence the Uint8Array view.
-	return new Response(new Uint8Array(body), {
-		...(contentType && { headers: { 'content-type': contentType } }),
+	return new Response(body, {
+		...(contentType && {
+			headers: {
+				'content-type': contentType,
+			},
+		}),
 	}).formData();
 };

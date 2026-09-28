@@ -34,7 +34,9 @@
 		"noImplicitAny": true
 	},
 	"include": [
-		"src",
-		".react-router/types/**/*"
+		 "src/**/*",
+        "workers/**/*",
+        "worker-configuration.d.ts",
+        ".react-router/types/**/*"
 	]
 }
