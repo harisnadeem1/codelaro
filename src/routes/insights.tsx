@@ -6,19 +6,48 @@ import { InsightsCategories } from '@/components/insights/insights-categories';
 import { CtaSection } from '@/components/cta-section';
 
 export function meta({ matches, location }: Route.MetaArgs) {
-	return seo({ matches, location }, {
-		title: 'Insights — Codelaro',
-		description:
-			'Notes on engineering, AI, product, cloud and the business of building software — practical perspectives from a senior team that ships.',
-		path: '/insights',
-		jsonLd: {
-			'@context': 'https://schema.org',
-			'@type': 'Blog',
-			name: 'Codelaro Insights',
+	return seo(
+		{ matches, location },
+		{
+			title: 'Software Development & AI Insights | Codelaro',
+
 			description:
-				'Notes on engineering, AI, product, cloud and the business of building software.',
-		},
-	});
+				'Explore expert insights on software development, artificial intelligence, cloud engineering, SaaS and digital transformation from Codelaro.',
+
+			path: '/insights',
+
+			jsonLd: {
+				'@context': 'https://schema.org',
+				'@type': 'Blog',
+
+				
+
+				name: 'Codelaro Insights',
+
+				url: 'https://codelaro.com/insights',
+
+				description:
+					'Explore practical insights, engineering perspectives and industry trends in software development, artificial intelligence, cloud computing, SaaS and digital transformation.',
+
+				inLanguage: 'en',
+
+				publisher: {
+					'@type': 'Organization',
+					name: 'Codelaro',
+					url: 'https://codelaro.com',
+				},
+
+				about: [
+					{ '@type': 'Thing', name: 'Software Development' },
+					{ '@type': 'Thing', name: 'Artificial Intelligence' },
+					{ '@type': 'Thing', name: 'Cloud Computing' },
+					{ '@type': 'Thing', name: 'SaaS Development' },
+					{ '@type': 'Thing', name: 'Digital Transformation' },
+					{ '@type': 'Thing', name: 'Web Development' },
+				],
+			},
+		}
+	);
 }
 
 export default function InsightsPage() {
@@ -27,7 +56,6 @@ export default function InsightsPage() {
 			<InsightsHero />
 			<InsightsFeatured />
 			<InsightsLatest />
-			<InsightsCategories />
 			<CtaSection
 				eyebrow="Stay in the loop"
 				title={

@@ -410,11 +410,11 @@ export function Services() {
         items-center gap-3
         rounded-xl
         border 
-        bg-navy-800 px-4 py-2.5
+        bg-brand px-4 py-2.5
         text-[16px] font-semibold text-white
         shadow-sm
         transition-all duration-300
-        hover:bg-navy-900
+        hover:bg-brand-600
         focus-visible:outline-2
         focus-visible:outline-offset-4
         focus-visible:outline-brand
@@ -429,7 +429,7 @@ export function Services() {
             transition-all duration-300
             group-hover:-translate-y-0.5
             group-hover:translate-x-0.5
-            group-hover:text-brand
+            group-hover:text-white
         "
 							strokeWidth={2}
 							aria-hidden="true"

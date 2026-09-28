@@ -20,7 +20,14 @@ export function SolutionHero({ solution }: { solution: Solution }) {
           </Link>
         </nav>
 
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,0.93fr)_minmax(0,1.07fr)] lg:gap-8 xl:gap-12">
+        <div className="
+    grid items-center
+    gap-12
+    lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]
+    lg:gap-24
+    xl:gap-32
+    2xl:gap-40
+">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3">
               <span className="h-px w-9 bg-brand" />
@@ -31,9 +38,9 @@ export function SolutionHero({ solution }: { solution: Solution }) {
               {solution.title}
             </h1>
 
-            <p className="mt-6 max-w-xl font-display text-xl font-semibold leading-[1.4] tracking-tight text-brand-700 sm:text-2xl">
+            {/* <p className="mt-6 max-w-xl font-display text-xl font-semibold leading-[1.4] tracking-tight text-brand-700 sm:text-2xl">
               {solution.outcome}
-            </p>
+            </p> */}
 
             <p className="mt-6 max-w-xl text-[15px] leading-[1.85] text-slate-500 sm:text-base">
               {solution.explanation}

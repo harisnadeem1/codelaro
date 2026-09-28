@@ -15,6 +15,7 @@ export default [
 	route('company/process', 'routes/company.process.tsx'),
 	route('company/careers', 'routes/company.careers.tsx'),
 	route('insights', 'routes/insights.tsx'),
+route('insights/:slug', 'routes/insights-article.tsx'),
 	route('contact', 'routes/contact.tsx'),
 	route('start-a-project', 'routes/start-a-project.tsx'),
 	route('book-a-consultation', 'routes/book-a-consultation.tsx'),
