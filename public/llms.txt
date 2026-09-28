@@ -1,0 +1,72 @@
+# Codelaro
+
+> Codelaro is a software development company building modern websites, custom software, web applications, mobile applications, eCommerce solutions, and AI-powered automation.
+
+Website: https://codelaro.com/
+Tagline: Code. Launch. Grow.
+
+Codelaro helps startups, entrepreneurs, and businesses design, develop, launch, and scale digital products.
+
+## Core Pages
+
+- [Home](https://codelaro.com/): Introduction to Codelaro and its software development capabilities.
+- [Services](https://codelaro.com/services): Explore Codelaro's software development services.
+- [Solutions](https://codelaro.com/solutions): Discover technology solutions for business challenges.
+- [Industries](https://codelaro.com/industries): Explore the industries Codelaro serves.
+- [Our Work](https://codelaro.com/work): Explore selected development projects and case studies.
+- [Company](https://codelaro.com/company): Learn about Codelaro.
+- [Insights](https://codelaro.com/insights): Explore articles about software development and technology.
+
+## Services
+
+Codelaro provides digital product development services, including:
+
+- Web development
+- Custom software development
+- Mobile application development
+- eCommerce development
+- AI and workflow automation
+
+See: https://codelaro.com/services
+
+## Solutions
+
+Codelaro develops technology solutions to address business challenges, modernize digital products, improve operational efficiency, and support business growth.
+
+See: https://codelaro.com/solutions
+
+## Industries
+
+Codelaro provides software development services for businesses across multiple industries.
+
+See: https://codelaro.com/industries
+
+## Company
+
+- [About Codelaro](https://codelaro.com/company)
+- [Why Codelaro](https://codelaro.com/company/why-codelaro)
+- [Our Process](https://codelaro.com/company/process)
+- [Careers](https://codelaro.com/company/careers)
+
+## Resources
+
+- [Insights](https://codelaro.com/insights)
+- [Frequently Asked Questions](https://codelaro.com/faq)
+
+## Contact
+
+- [Contact Codelaro](https://codelaro.com/contact)
+- [Start a Project](https://codelaro.com/start-a-project)
+- [Book a Consultation](https://codelaro.com/book-a-consultation)
+
+## Legal
+
+- [Privacy Policy](https://codelaro.com/privacy-policy)
+- [Terms and Conditions](https://codelaro.com/terms)
+- [Cookie Policy](https://codelaro.com/cookie-policy)
+- [Accessibility](https://codelaro.com/accessibility)
+
+## Additional Resources
+
+- Sitemap: https://codelaro.com/sitemap.xml
+- Robots: https://codelaro.com/robots.txt

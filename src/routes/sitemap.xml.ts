@@ -1,91 +1,110 @@
-import type { Route } from './+types/sitemap.xml';
-import { siteOrigin } from '@/lib/site-origin.server';
+import type { LoaderFunctionArgs } from 'react-router';
+
 import { SERVICES } from '@/data/services';
 import { SOLUTIONS } from '@/data/solutions';
 import { INDUSTRIES } from '@/data/industries';
-import { WORK_PROJECTS } from '@/data/work';
 
-type SitemapEntry = {
-	path: string;
-	lastmod?: string;
-};
+import { siteOrigin } from '@/lib/site-origin.server';
 
-const STATIC_PATHS = [
-	'/',
-	'/services',
-	'/solutions',
-	'/industries',
-	'/work',
-	'/company',
-	'/company/why-codelaro',
-	'/company/process',
-	'/company/careers',
-	'/insights',
-	'/contact',
-	'/start-a-project',
-	'/book-a-consultation',
-	'/faq',
-	'/privacy-policy',
-	'/terms',
-	'/cookie-policy',
-	'/accessibility',
+const STATIC_ROUTES = [
+    '/',
+    '/services',
+    '/solutions',
+    '/industries',
+    '/work',
+    '/company',
+    '/company/why-codelaro',
+    '/company/process',
+    '/company/careers',
+    '/insights',
+    '/contact',
+    '/start-a-project',
+    '/book-a-consultation',
+    '/faq',
+    '/privacy-policy',
+    '/terms',
+    '/cookie-policy',
+    '/accessibility',
 ];
 
 function escapeXml(value: string): string {
-	return value
-		.replaceAll('&', '&amp;')
-		.replaceAll('<', '&lt;')
-		.replaceAll('>', '&gt;')
-		.replaceAll('"', '&quot;')
-		.replaceAll("'", '&apos;');
+    return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
 }
 
-function toLoc(origin: string, path: string): string {
-	return `${origin}${path.startsWith('/') ? path : `/${path}`}`;
+function normalizeOrigin(origin: string): string {
+    return origin.replace(/\/+$/, '');
 }
 
-function serializeSitemap(origin: string, entries: SitemapEntry[]): string {
-	const urls = entries
-		.map(entry => {
-			const loc = escapeXml(toLoc(origin, entry.path));
-			const lastmod = entry.lastmod
-				? `\n\t\t<lastmod>${escapeXml(entry.lastmod)}</lastmod>`
-				: '';
+function generateSitemap(
+    origin: string,
+    routes: string[]
+): string {
+    const urls = [...new Set(routes)];
 
-			return `\t<url>\n\t\t<loc>${loc}</loc>${lastmod}\n\t</url>`;
-		})
-		.join('\n');
+    const entries = urls
+        .map((path) => {
+            const url = `${origin}${path}`;
 
-	return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+            return [
+                '  <url>',
+                `    <loc>${escapeXml(url)}</loc>`,
+                '  </url>',
+            ].join('\n');
+        })
+        .join('\n');
+
+    return [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        entries,
+        '</urlset>',
+    ].join('\n');
 }
 
-/**
- * Public dynamic URLs (blog posts, PDPs, articles).
- * Return `{ path, lastmod }` in the same change that adds a collection.
- * Return `[]` only while the site has no public records; clear those URLs
- * again in the same change that removes the collection.
- */
-async function getDynamicEntries(): Promise<SitemapEntry[]> {
-	const services = SERVICES.map((service) => ({ path: `/services/${service.slug}` }));
-	const solutions = SOLUTIONS.map((solution) => ({ path: `/solutions/${solution.slug}` }));
-	const industries = INDUSTRIES.map((industry) => ({ path: `/industries/${industry.slug}` }));
-	const caseStudies = WORK_PROJECTS.map((project) => ({ path: `/work/${project.slug}` }));
+export function loader({
+    request,
+}: LoaderFunctionArgs) {
+    const origin = normalizeOrigin(
+        siteOrigin(request)
+    );
 
-	return [...services, ...solutions, ...industries, ...caseStudies];
-}
+    const serviceRoutes = SERVICES.map(
+        ({ slug }) => `/services/${slug}`
+    );
 
-export async function loader({ request }: Route.LoaderArgs) {
-	const origin = siteOrigin(request);
-	const entries: SitemapEntry[] = [
-		...STATIC_PATHS.map(path => ({ path })),
-		...(await getDynamicEntries()),
-	];
+    const solutionRoutes = SOLUTIONS.map(
+        ({ slug }) => `/solutions/${slug}`
+    );
 
-	return new Response(serializeSitemap(origin, entries), {
-		headers: {
-			'Content-Type': 'application/xml; charset=utf-8',
-			'Cache-Control': 'public, max-age=3600',
-			'Access-Control-Allow-Origin': '*',
-		},
-	});
+    const industryRoutes = INDUSTRIES.map(
+        ({ slug }) => `/industries/${slug}`
+    );
+
+    const routes = [
+        ...STATIC_ROUTES,
+        ...serviceRoutes,
+        ...solutionRoutes,
+        ...industryRoutes,
+    ];
+
+    const sitemap = generateSitemap(
+        origin,
+        routes
+    );
+
+    return new Response(sitemap, {
+        status: 200,
+        headers: {
+            'Content-Type':
+                'application/xml; charset=utf-8',
+
+            'Cache-Control':
+                'public, max-age=3600, s-maxage=3600',
+        },
+    });
 }
