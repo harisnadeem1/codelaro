@@ -119,12 +119,11 @@ export function ServicesOverviewIntro() {
 								font-display
 								text-[34px]
 								font-semibold
-								leading-[1.17]
+								leading-[1.08]
 								tracking-[-0.045em]
 								text-navy
-								sm:text-4xl
-								lg:text-4xl
-								xl:text-4xl
+								
+								xl:text-[3.5rem]
 							"
 						>
 							Built on Experience.

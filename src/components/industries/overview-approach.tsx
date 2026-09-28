@@ -496,8 +496,8 @@ export function IndustriesOverviewApproach() {
 									mt-7
 									max-w-[570px]
 									font-display
-									text-[clamp(2.25rem,3.6vw,3.8rem)]
-									font-bold
+									text-[clamp(2.25rem,3.6vw,3.5rem)]
+									font-semibold
 									leading-[1.12]
 									tracking-[-0.045em]
 									text-white

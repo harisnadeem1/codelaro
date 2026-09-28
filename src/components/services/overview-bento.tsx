@@ -161,12 +161,12 @@ export function ServicesOverviewBento() {
 		id="services-heading"
 		className="
 			font-display
-			text-[34px] font-semibold
+			text-[3rem] font-semibold
 			leading-[1.14]
 			tracking-[-0.045em]
 			text-navy
-			sm:text-[42px]
-			lg:text-[48px]
+			sm:text-[3.5rem]
+			lg:text-[3.5rem]
 		"
 	>
 		Technology expertise

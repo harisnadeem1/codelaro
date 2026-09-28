@@ -117,7 +117,7 @@ export function ServiceApproach({
 						className="
               mx-auto mt-6 max-w-4xl
               font-display
-              text-[clamp(2.2rem,4.3vw,4.8rem)]
+              text-[clamp(2.2rem,4.3vw,3.5rem)]
               font-semibold
               leading-[1.1]
               tracking-[-0.055em]

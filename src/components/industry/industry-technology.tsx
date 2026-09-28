@@ -163,8 +163,8 @@ export function IndustryTechnology({
 								mt-6
 								max-w-[800px]
 								font-display
-								text-[clamp(2.2rem,4.3vw,4.7rem)]
-								font-bold
+								text-[clamp(2.2rem,4.3vw,3.5rem)]
+								font-semibold
 								leading-[1.1]
 								tracking-[-0.045em]
 								text-navy

@@ -159,7 +159,7 @@ export function ServiceRelated({
               className="
                 mt-6 max-w-4xl
                 font-display
-                text-[clamp(2.2rem,4.2vw,4.6rem)]
+                text-[clamp(2.2rem,4.2vw,3.5rem)]
                 font-semibold
                 leading-[1.1]
                 tracking-[-0.05em]

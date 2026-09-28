@@ -7,7 +7,6 @@ import { CaseStudySolution } from '@/components/case-study/cs-solution';
 import { CaseStudyTechStack } from '@/components/case-study/cs-tech-stack';
 import { CaseStudyVisuals } from '@/components/case-study/cs-visuals';
 import { CaseStudyOutcomes } from '@/components/case-study/cs-outcomes';
-import { CaseStudyRelated } from '@/components/case-study/cs-related';
 import { CtaSection } from '@/components/cta-section';
 
 export function CaseStudyDetail({ project }: { project: WorkProject }) {
@@ -21,8 +20,7 @@ export function CaseStudyDetail({ project }: { project: WorkProject }) {
 			<CaseStudyVisuals project={project} />
 			<CaseStudyTechStack project={project} />
 			<CaseStudyOutcomes project={project} />
-			<CaseStudyRelated current={project} />
-			<CtaSection />
+			<CtaSection background='white' />
 		</main>
 	);
 }

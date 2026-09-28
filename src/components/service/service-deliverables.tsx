@@ -434,7 +434,7 @@ export function ServiceDeliverables({ service }: { service: Service }) {
 
             <h2
               id="service-deliverables-heading"
-              className="mt-5 max-w-2xl font-display text-[clamp(2rem,3.45vw,3.55rem)] font-semibold leading-[1.13] tracking-[-0.045em] text-navy"
+              className="mt-5 max-w-2xl font-display text-[clamp(2rem,3.45vw,3.5rem)] font-semibold leading-[1.13] tracking-[-0.045em] text-navy"
             >
               What you get with <span className="text-brand">{service.title}.</span>
             </h2>

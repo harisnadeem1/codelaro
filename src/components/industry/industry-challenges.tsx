@@ -76,8 +76,8 @@ export function IndustryChallenges({
                                 mt-7
                                 max-w-[760px]
                                 font-display
-                                text-[clamp(2.5rem,4.3vw,4.7rem)]
-                                font-bold
+                                text-[clamp(2.5rem,4.3vw,3.5rem)]
+                                font-semibold
                                 leading-[1.09]
                                 tracking-[-0.045em]
                                 text-navy

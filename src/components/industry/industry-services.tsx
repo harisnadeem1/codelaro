@@ -116,8 +116,8 @@ export function IndustryServices({
 								mt-7
 								max-w-[800px]
 								font-display
-								text-[clamp(2.5rem,4.2vw,4.6rem)]
-								font-bold
+								text-[clamp(2.5rem,4.2vw,3.5rem)]
+								font-semibold
 								leading-[1.08]
 								tracking-[-0.045em]
 								text-white
