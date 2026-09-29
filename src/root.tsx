@@ -134,51 +134,69 @@ export const meta: Route.MetaFunction = () => {
 
 		/* Open Graph */
 		{
-			property: 'og:type',
-			content: 'website',
-		},
-		{
-			property: 'og:site_name',
-			content: 'Codelaro',
-		},
-		{
-			property: 'og:title',
-			content:
-				'Codelaro | Web Development, Software & AI Solutions',
-		},
-		{
-			property: 'og:description',
-			content:
-				'Modern websites, custom software, web applications and AI-powered solutions built to help businesses launch and grow.',
-		},
-		{
-			property: 'og:image',
-			content: '/og-image.png',
-		},
-		{
-			property: 'og:image:alt',
-			content: 'Codelaro — Code. Launch. Grow.',
-		},
+    property: 'og:type',
+    content: 'website',
+},
+{
+    property: 'og:site_name',
+    content: 'Codelaro',
+},
+{
+    property: 'og:title',
+    content: 'Codelaro | Web Development, Software & AI Solutions',
+},
+{
+    property: 'og:description',
+    content:
+        'Modern websites, custom software, web applications and AI-powered solutions built to help businesses launch and grow.',
+},
+{
+    property: 'og:url',
+    content: 'https://codelaro.com/',
+},
+{
+    property: 'og:image',
+    content: 'https://codelaro.com/og-image.png',
+},
+{
+    property: 'og:image:secure_url',
+    content: 'https://codelaro.com/og-image.png',
+},
+{
+    property: 'og:image:type',
+    content: 'image/png',
+},
+{
+    property: 'og:image:width',
+    content: '1200',
+},
+{
+    property: 'og:image:height',
+    content: '630',
+},
+{
+    property: 'og:image:alt',
+    content: 'Codelaro — Code. Launch. Grow.',
+},
 
-		/* Twitter / X */
-		{
-			name: 'twitter:card',
-			content: 'summary_large_image',
-		},
-		{
-			name: 'twitter:title',
-			content:
-				'Codelaro | Web Development, Software & AI Solutions',
-		},
-		{
-			name: 'twitter:description',
-			content:
-				'Modern websites, custom software, web applications and AI-powered solutions built to help businesses launch and grow.',
-		},
-		{
-			name: 'twitter:image',
-			content: '/og-image.png',
-		},
+		// Twitter / X
+{
+    name: 'twitter:card',
+    content: 'summary_large_image',
+},
+{
+    name: 'twitter:title',
+    content: 'Codelaro | Web Development, Software & AI Solutions',
+},
+{
+    name: 'twitter:description',
+    content:
+        'Modern websites, custom software, web applications and AI-powered solutions built to help businesses launch and grow.',
+},
+{
+    name: 'twitter:image',
+    content: 'https://codelaro.com/og-image.png',
+},
 	];
 };
 
