@@ -43,6 +43,12 @@ export function meta({ matches, location }: Route.MetaArgs) {
 						alternateName: 'Codelaro Software Development',
 
 						url: 'https://codelaro.com/',
+						 sameAs: [
+        'https://www.linkedin.com/company/codelaro',
+        'https://x.com/CodelaroTech',
+        'https://www.facebook.com/people/Codelaro/61594421296376/',
+        'https://www.instagram.com/codelaro/',
+    ],
 
 						logo: {
 							'@type': 'ImageObject',

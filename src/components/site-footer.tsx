@@ -234,7 +234,7 @@ export function SiteFooter() {
 				================================================= */}
 
 				<div
-    className="
+					className="
         grid gap-10
         border-b border-white/10
         py-12
@@ -244,57 +244,57 @@ export function SiteFooter() {
         md:py-14
         lg:gap-20
     "
->
-    {/* Left: Logo & Brand Description */}
+				>
+					{/* Left: Logo & Brand Description */}
 
-    <div className="md:col-span-5">
-        <Link
-            to="/"
-            aria-label="Codelaro home"
-            className="group inline-flex items-center"
-        >
-            <img
-                src="/logo/codelaro_svg/logo_white.svg"
-                alt="Codelaro"
-                width={160}
-                height={44}
-                loading="lazy"
-                className="
+					<div className="md:col-span-5">
+						<Link
+							to="/"
+							aria-label="Codelaro home"
+							className="group inline-flex items-center"
+						>
+							<img
+								src="/logo/codelaro_svg/logo_white.svg"
+								alt="Codelaro"
+								width={160}
+								height={44}
+								loading="lazy"
+								className="
                     h-11 w-auto
                     object-contain
                     transition-opacity duration-300
                     group-hover:opacity-90
                 "
-            />
-        </Link>
+							/>
+						</Link>
 
-        <p
-            className="
+						<p
+							className="
                 mt-6 max-w-md
                 text-[14px]
                 leading-7
                 text-slate-400
                 sm:text-[15px]
             "
-        >
-            At Codelaro, we believe great technology begins
-            with clear thinking and thoughtful execution.
-            Every detail matters, and every project is an
-            opportunity to build something meaningful.
-        </p>
-    </div>
+						>
+							At Codelaro, we believe great technology begins
+							with clear thinking and thoughtful execution.
+							Every detail matters, and every project is an
+							opportunity to build something meaningful.
+						</p>
+					</div>
 
-    {/* Right: Brand Statement */}
+					{/* Right: Brand Statement */}
 
-    <div
-        className="
+					<div
+						className="
             flex
             md:col-span-7
             md:justify-end
         "
-    >
-        <h2
-            className="
+					>
+						<h2
+							className="
                 max-w-2xl
                 font-display
                 text-[2rem]
@@ -306,15 +306,15 @@ export function SiteFooter() {
                 lg:text-[3rem]
                 xl:text-[3.4rem]
             "
-        >
-            Clarity in thinking.
+						>
+							Clarity in thinking.
 
-            <span className="block text-slate-500">
-                Care in execution.
-            </span>
-        </h2>
-    </div>
-</div>
+							<span className="block text-slate-500">
+								Care in execution.
+							</span>
+						</h2>
+					</div>
+				</div>
 
 				{/* =================================================
 				    Navigation
@@ -439,7 +439,7 @@ export function SiteFooter() {
 					>
 						{/* LinkedIn */}
 						<a
-							href="YOUR_LINKEDIN_URL"
+							href="https://www.linkedin.com/company/codelaro"
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Follow Codelaro on LinkedIn"
@@ -474,7 +474,7 @@ export function SiteFooter() {
 
 						{/* X / Twitter */}
 						<a
-							href="YOUR_X_URL"
+							href="https://x.com/CodelaroTech"
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Follow Codelaro on X"
@@ -509,7 +509,7 @@ export function SiteFooter() {
 
 						{/* Facebook */}
 						<a
-							href="YOUR_FACEBOOK_URL"
+							href="https://www.facebook.com/people/Codelaro/61594421296376/"
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Follow Codelaro on Facebook"
@@ -544,7 +544,7 @@ export function SiteFooter() {
 
 						{/* Instagram */}
 						<a
-							href="YOUR_INSTAGRAM_URL"
+							href="https://www.instagram.com/codelaro/"
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="Follow Codelaro on Instagram"

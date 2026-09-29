@@ -482,7 +482,7 @@ export function WhyCodelaro() {
 							w-fit items-center
 							justify-center gap-3
 							rounded-xl
-							bg-navy-800
+							bg-brand
 							px-5
 							font-display
 							text-[16px]
@@ -491,7 +491,7 @@ export function WhyCodelaro() {
 							transition-all
 							duration-300
 							hover:-translate-y-0.5
-							hover:bg-navy-800
+							hover:bg-brand-800
 							active:translate-y-0
 							active:scale-[0.98]
 						"
@@ -515,7 +515,7 @@ export function WhyCodelaro() {
 									duration-300
 									group-hover:-translate-y-0.5
 									group-hover:translate-x-0.5
-            group-hover:text-brand
+            group-hover:text-white
 
 								"
 								aria-hidden="true"
