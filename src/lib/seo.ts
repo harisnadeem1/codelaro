@@ -1,25 +1,5 @@
-/**
- * Central SEO helper for Codelaro.
- *
- * Generates:
- * - Page title
- * - Meta description
- * - Canonical URL
- * - Robots directives
- * - Open Graph metadata
- * - X / Twitter Card metadata
- * - JSON-LD structured data
- *
- * The root loader publishes the site's public origin. This helper reads that
- * origin from route matches so canonical URLs, Open Graph URLs and social
- * images can always be emitted as absolute URLs.
- */
 
 import type { MetaDescriptor } from 'react-router';
-
-/* -------------------------------------------------------------------------- */
-/*                                   Types                                    */
-/* -------------------------------------------------------------------------- */
 
 type RouteMatchLike =
 	| {
@@ -120,6 +100,7 @@ const DEFAULT_IMAGE_ALT =
 	'Codelaro — Software Development & AI Solutions';
 
 const DEFAULT_LOCALE = 'en_US';
+const DEFAULT_SOCIAL_IMAGE = '/og-image.png';
 
 /* -------------------------------------------------------------------------- */
 /*                              Origin Helpers                                */
@@ -217,10 +198,11 @@ export function seo(
 		? absoluteUrl(origin, canonicalPath)
 		: '';
 
-	const imageUrl =
-		origin && input.image
-			? absoluteUrl(origin, input.image)
-			: input.image ?? '';
+	const socialImage = input.image ?? DEFAULT_SOCIAL_IMAGE;
+
+const imageUrl = origin
+    ? absoluteUrl(origin, socialImage)
+    : socialImage;
 
 	const imageAlt =
 		input.imageAlt ?? DEFAULT_IMAGE_ALT;
@@ -344,28 +326,41 @@ export function seo(
 	/* ---------------------------------------------------------------------- */
 
 	if (imageUrl) {
-		tags.push(
-			{
-				property: 'og:image',
-				content: imageUrl,
-			},
-
-			{
-				property: 'og:image:alt',
-				content: imageAlt,
-			},
-
-			{
-				name: 'twitter:image',
-				content: imageUrl,
-			},
-
-			{
-				name: 'twitter:image:alt',
-				content: imageAlt,
-			},
-		);
-	}
+    tags.push(
+        {
+            property: 'og:image',
+            content: imageUrl,
+        },
+        {
+            property: 'og:image:secure_url',
+            content: imageUrl,
+        },
+        {
+            property: 'og:image:type',
+            content: 'image/png',
+        },
+        {
+            property: 'og:image:width',
+            content: '1200',
+        },
+        {
+            property: 'og:image:height',
+            content: '630',
+        },
+        {
+            property: 'og:image:alt',
+            content: imageAlt,
+        },
+        {
+            name: 'twitter:image',
+            content: imageUrl,
+        },
+        {
+            name: 'twitter:image:alt',
+            content: imageAlt,
+        },
+    );
+}
 
 	/* ---------------------------------------------------------------------- */
 	/* JSON-LD                                                               */
