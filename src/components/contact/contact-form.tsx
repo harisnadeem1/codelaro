@@ -358,10 +358,8 @@ export function ContactForm() {
 ) => {
 	event.preventDefault();
 
-	console.log('1. CONTACT FORM SUBMITTED');
 
 	if (isSubmitting) {
-		console.log('STOPPED: already submitting');
 		return;
 	}
 
@@ -371,21 +369,11 @@ export function ContactForm() {
 	const form = event.currentTarget;
 	const formData = new FormData(form);
 
-	console.log('2. FORM DATA:', {
-		name: formData.get('name'),
-		email: formData.get('email'),
-		company: formData.get('company'),
-		subject: formData.get('subject'),
-		selection: formData.get('selection'),
-		message: formData.get('message'),
-		website: formData.get('website'),
-	});
 
 	const honeypot = String(
 	formData.get('contact_reference') ?? ''
 ).trim();
 
-console.log('Honeypot value:', honeypot);
 
 if (honeypot) {
 	console.warn('Submission blocked by honeypot.');
@@ -402,27 +390,20 @@ if (honeypot) {
 	return;
 }
 
-	console.log('3. HONEYPOT PASSED');
 
 	const validationErrors =
 		validateForm(formData);
 
-	console.log(
-		'4. VALIDATION:',
-		validationErrors
-	);
+	
 
 	if (Object.keys(validationErrors).length > 0) {
-		console.log(
-			'STOPPED: validation errors',
-			validationErrors
-		);
+		
 
 		setErrors(validationErrors);
 		return;
 	}
 
-	console.log('5. VALIDATION PASSED');
+	
 
 	setErrors({});
 	setIsSubmitting(true);
@@ -436,11 +417,7 @@ if (honeypot) {
 	const publicKey =
 		import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-	console.log('6. EMAILJS CONFIG:', {
-		serviceId,
-		templateId,
-		publicKeyExists: Boolean(publicKey),
-	});
+
 
 	if (!serviceId || !templateId || !publicKey) {
 		console.error(
@@ -491,10 +468,7 @@ if (honeypot) {
 		).trim(),
 	};
 
-	console.log(
-		'7. SENDING TO EMAILJS:',
-		templateParams
-	);
+	
 
 	try {
 		const response = await emailjs.send(
@@ -506,10 +480,7 @@ if (honeypot) {
 			}
 		);
 
-		console.log(
-			'8. EMAILJS SUCCESS:',
-			response
-		);
+		
 
 		form.reset();
 
