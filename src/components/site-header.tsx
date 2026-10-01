@@ -27,6 +27,10 @@ function Logo({ onNavigate }: { onNavigate?: () => void }) {
 			<img
 				src="/logo/codelaro_svg/logo_black.svg"
 				alt="Codelaro"
+				width={160}
+				height={40}
+				fetchPriority="high"
+				decoding="async"
 				className="
 					h-9 w-auto object-contain
 					transition-transform duration-300
@@ -37,7 +41,6 @@ function Logo({ onNavigate }: { onNavigate?: () => void }) {
 		</Link>
 	);
 }
-
 /* -------------------------------------------------------------------------- */
 /*                              Desktop Mega Menu                             */
 /* -------------------------------------------------------------------------- */
@@ -699,18 +702,24 @@ export function SiteHeader() {
 	const location = useLocation();
 
 	useEffect(() => {
-		const onScroll = () => {
-			setScrolled(window.scrollY > 24);
-		};
+	const onScroll = () => {
+		const nextScrolled = window.scrollY > 24;
 
-		onScroll();
+		setScrolled((current) =>
+			current === nextScrolled ? current : nextScrolled,
+		);
+	};
 
-		window.addEventListener('scroll', onScroll, {
-			passive: true,
-		});
+	onScroll();
 
-		return () => window.removeEventListener('scroll', onScroll);
-	}, []);
+	window.addEventListener('scroll', onScroll, {
+		passive: true,
+	});
+
+	return () => {
+		window.removeEventListener('scroll', onScroll);
+	};
+}, []);
 
 	useEffect(() => {
 		setMobileOpen(false);

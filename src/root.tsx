@@ -80,17 +80,11 @@ export const links: Route.LinksFunction = () => [
 	crossOrigin: 'anonymous',
 },
 {
-	rel: 'preconnect',
-	href: 'https://fonts.googleapis.com',
-},
-{
-	rel: 'preconnect',
-	href: 'https://fonts.gstatic.com',
+	rel: 'preload',
+	href: '/fonts/dm-sans/dm-sans-latin-wght-normal.woff2',
+	as: 'font',
+	type: 'font/woff2',
 	crossOrigin: 'anonymous',
-},
-{
-	rel: 'stylesheet',
-	href: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap',
 },
 ];
 
